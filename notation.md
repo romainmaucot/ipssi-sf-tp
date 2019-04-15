@@ -45,7 +45,12 @@ Dans votre quotidien professionnel, ce que vos clients/collègues/collaborateurs
 
 > **Recommandation :** Avant de faire un rendu, re-testez le projet en l'extrayant dans un autre terminal et un autre répertoire que celui dans lequel vous travailliez, vous remarquerez rapidement les dépendances, fichiers et variables d'environnement manquants.
 
-### 3 - Si vous voulez, des commentaires
+### 3 - Du code propre  
+En effet, du code qui marche c'est une chose, du code propre en est une autre. Pensez a indenté votre code, ne gardé pas des pavé de code commenter comme bloc notes, respecté les rêgle de CodeStyle..  
+
+Votre projet devra intégré une CI minimal pour permettre de validé ce niveau de qualité. CircleCI vous y aidera. Sur le `readme.md` se trouve le Badge Circle. Si votre rendu n'est pas au vert et les rêgle de CI configurer, le TP sera noté sur la moitié des point. 
+
+### 4 - Si vous voulez, des commentaires
 
 Si vous n'arrivez pas à faire quelque chose mais que vous avez pourtant une idée qui vous semble intéressante n'hésitez pas à laisser quelques commentaires sous la forme que vous le souhaitez (pseudo-code, code commenté, langage humain), si je vois que vous avez une solution correcte avec une implémentation erronée cela peut jouer en votre faveur sur la notation !
 
