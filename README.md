@@ -6,14 +6,32 @@ Création d'une platform de pari eu ligne
 
 Technologies : 
   - Symfony (pas de version full) 
+  - Docker
+  - Make
   - Boostwatch, théme au choix : https://bootswatch.com/ (Base bootstrap)
   - Libs a votre convenance. Sauf les lib Interdite : FOS User, Sonata****, 
   - CircleCI doit être configurer sur votre projet, et lancer les test de Code Style (Php CS, PhpStan niveau 6)
     - https://github.com/phpstan/phpstan
     - https://symfony.com/doc/current/contributing/code/standards.html  
 
+## Regles : 
+  - Groupe de 3 Max
+  - Le Projet doit être démarrable via 'make start' sur un docker  
+  - Un jeu de test (fixtures) doit être présent, couvrant l'ensemble du scope du projet
+  
+  - Le rendu se faire sur Github,   
+	- Une PR par groupe sur le dépot de base : https://github.com/alborq/ipssi-sf-tp ( Créer votre fork)  
+	- La PR doit être ouvert dés Lundi, Elle porte le nom des membres du groupe.  
+	- Je fais des review régulière sur les PR mis a jour régulièrement  
+		
+  - Créer le fichier suivant :   
+    - rendu_lib.txt :  
+       - Une ligne par dépendences dans le projet (basé sur le composer.json)   
+       - Pour chaque dépendences, Un fichier qui l'utilise + une description court de 'A quoi il VOUS sert.'  
 
-Fonctionnalité attendu : 
+
+
+## Fonctionnalité attendu : 
   - Une zone de blog
 	  - Liste des articles paginé (10 par page)
 	  - Consultation d'un article.
@@ -54,20 +72,4 @@ Fonctionnalité attendu :
 - Bonus: 
 	- Ajouter Stripe comme systeme de payement pour pouvoir remplir le compte de l'utilisateur
 	- Ajouter Une page d'historique de transaction sur le profil du joueur
-
-Rendu : 
-  - Groupe de 3 Max
-  - Le Projet doit être démarrable via 'make start' sur un docker  
-  - Un jeu de test (fixtures) doit être présent, couvrant l'ensemble du scope du projet
-  
-  - Le rendu se faire sur Github,   
-	- Une PR par groupe sur le dépot de base : https://github.com/alborq/ipssi-sf-tp ( Créer votre fork)  
-	- La PR doit être ouvert dés Lundi, Elle porte le nom des membres du groupe.  
-	- Je fais des review régulière sur les PR mis a jour régulièrement  
-		
-  Créer les fichier suivant :   
-	- rendu_lib.txt :  
-		- Une ligne par dépendences dans le projet (basé sur le composer.json)   
-		- Pour chaque dépendences, Un fichier qui l'utilise + une description court de 'A quoi il VOUS sert.'  
-
 
