@@ -55,18 +55,18 @@ Fonctionnalité attendu :
 	- Ajouter Une page d'historique de transaction sur le profil du joueur
 
 Rendu : 
-	Groupe de 3 Max
-
-  Le Projet doit être démarrable via 'make start' sur un docker  
- 
-  Le rendu se faire sur Github,   
-		Une PR par groupe sur le dépot de base : https://github.com/alborq/ipssi-sf-tp ( Créer votre fork)  
-		La PR doit être ouvert dés Lundi, Elle porte le nom des membres du groupe.  
-		Je fais des review régulière sur les PR mis a jour régulièrement  
+  - Groupe de 3 Max
+  - Le Projet doit être démarrable via 'make start' sur un docker  
+  - Un jeu de test (fixtures) doit être présent, couvrant l'ensemble du scope du projet
+  
+  - Le rendu se faire sur Github,   
+	- Une PR par groupe sur le dépot de base : https://github.com/alborq/ipssi-sf-tp ( Créer votre fork)  
+	- La PR doit être ouvert dés Lundi, Elle porte le nom des membres du groupe.  
+	- Je fais des review régulière sur les PR mis a jour régulièrement  
 		
   Créer les fichier suivant :   
-		rendu_lib.txt :  
-			Une ligne par dépendences dans le projet (basé sur le composer.json)   
-			Pour chaque dépendences, Un fichier qui l'utilise + une description court de 'A quoi il VOUS sert.'  
+	- rendu_lib.txt :  
+		- Une ligne par dépendences dans le projet (basé sur le composer.json)   
+		- Pour chaque dépendences, Un fichier qui l'utilise + une description court de 'A quoi il VOUS sert.'  
 
 
