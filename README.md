@@ -54,7 +54,7 @@ Technologies :
 		- Un Article de blog est publié avec les résultat du tirage
 		- Un Mail est envoyer a tout les joueurs avec leur résultat personnel
 
-  -Zone admin
+  -Zone admin ( sur `/admin/`)
   - Interface de gestion des compte utilisateur VIA EasyAdminBundle 
 	- Zone de création d'article de blog en MarkDown via un editeur Markdown (https://github.com/KnpLabs/KnpMarkdownBundle, https://github.com/Grafikart/JS-Markdown-Editor)
 		Un Article aura un Titre et une photo d'accroche
