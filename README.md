@@ -1,5 +1,6 @@
 
-Thème: 
+# Thème: 
+[![CircleCI](https://circleci.com/gh/alborq/ipssi-sf-tp.svg?style=svg)](https://circleci.com/gh/alborq/ipssi-sf-tp) 
 
 Création d'une platform de pari eu ligne
 
