@@ -1,0 +1,11 @@
+# **Bundle installé :**
+
+**Debugpack** : toolbar avec plein d'information<br>
+**Annotations** : Install le routage par annotations
+**TwigBundle** : Affichage des pages<br>
+**Boostwatch** : Un affichage digne de ce nom<br>
+**Make Bundle** : Création de controllers, entités, formulaires ... par commandes
+**Doctrine/ORM** : Dépendance pour doctrine objet/bdd
+**Doctrine** : Communication avec nos bases de donées<br>
+**Alice** : Générer des fixtures <br>
+**Form** : Gestion de formulaire avec doctrine
