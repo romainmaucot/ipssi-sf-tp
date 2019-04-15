@@ -55,6 +55,12 @@ cc: perm
 exec:
 	$(EXEC) /bin/bash
 
+.PHONY: tests ## Run bash in the app container
+tests:
+	$(EXEC) vendor/bin/phpcs src/
+	$(EXEC) vendor/bin/phpcbf src/
+	$(EXEC) vendor/bin/phpstan analyse --level=6 src
+
 ##
 ## Dependencies Files
 ##---------------------------------------------------------------------------
