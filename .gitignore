@@ -4,9 +4,9 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
-.idea/
-vendor/
-var/
+/.idea
+/vendor
+/var
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

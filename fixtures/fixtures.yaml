@@ -7,11 +7,25 @@ App\Entity\Users:
     password: 'admin'
     amount: '<numberBetween(1, 1000)>'
 
-  users_{1..10}:
+  users{1..10}:
     __construct: false
     username: '<name()>'
     admin: false
     mail: '<email()>'
     password: '<name()>'
     amount: '<numberBetween(1, 1000)>'
+
+App\Entity\Article:
+  article-{1..10}:
+      __construct: false
+      title (unique): 'Partie : <numberBetween(1,10)>'
+      content: 'Résultats de la partie'
+      publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+
+App\Entity\Comment:
+  comment{1..90}:
+    __construct: false
+    article: "@article-<numberBetween(1,10)>"
+    content: 'Le contenu'
+    publish_date: "<dateTimeBetween('1 year ago', 'now')>"
 

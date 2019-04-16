@@ -41,6 +41,8 @@ start: docker-compose.override.yml
 	$(FIG) up -d
 	$(CONSOLE) doctrine:database:create --if-not-exists
 	$(CONSOLE) hautelook:fixtures:load -q
+	$(CONSOLE) server:run
+
 
 .PHONY: stop ## stop the project
 stop:
@@ -62,6 +64,7 @@ tests:
 	$(EXEC) vendor/bin/phpcs src/
 	$(EXEC) vendor/bin/phpcbf src/
 	$(EXEC) vendor/bin/phpstan analyse --level=6 src
+
 
 ##
 ## Dependencies Files
