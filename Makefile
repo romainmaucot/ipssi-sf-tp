@@ -39,9 +39,9 @@ start: docker-compose.override.yml
 	$(FIG) pull || true
 	$(FIG) build
 	$(FIG) up -d
-	$(CONSOLE) doctrine:database:create --if-not-exists
-	$(CONSOLE) hautelook:fixtures:load -q
-	$(CONSOLE) server:run
+	$(EXEC) $(CONSOLE) doctrine:database:create --if-not-exists
+	$(EXEC) $(CONSOLE) hautelook:fixtures:load -q
+
 
 
 .PHONY: stop ## stop the project
