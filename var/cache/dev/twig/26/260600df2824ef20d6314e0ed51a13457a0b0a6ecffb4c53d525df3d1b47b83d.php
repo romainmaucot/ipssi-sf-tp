@@ -781,6 +781,6 @@ class __TwigTemplate_0b6b041f3866bc317394435d6ae34fb8ce48f68fdd18d90fad0cd546f1f
         </table>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/config.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Collector/config.html.twig");
+", "@WebProfiler/Collector/config.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Collector/config.html.twig");
     }
 }

@@ -118,6 +118,6 @@ class __TwigTemplate_f393cb7f9f6512ab068225541acbc7554474aab2beef5e9a10d7f125797
 {% else %}
     {{ value|join(', ')|easyadmin_truncate }}
 {% endif %}
-", "@EasyAdmin/default/field_json.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_json.html.twig");
+", "@EasyAdmin/default/field_json.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_json.html.twig");
     }
 }

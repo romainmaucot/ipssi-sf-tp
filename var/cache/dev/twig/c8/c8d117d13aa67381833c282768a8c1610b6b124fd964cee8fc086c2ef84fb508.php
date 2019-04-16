@@ -504,6 +504,6 @@ class __TwigTemplate_f51eda2b09d5c1b8ca4cf9f75d25861f3b6706cd8bc33451beb15b07b7b
     </ul>
 
 {% endblock %}
-", "@EasyAdmin/data_collector/easyadmin.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/data_collector/easyadmin.html.twig");
+", "@EasyAdmin/data_collector/easyadmin.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/data_collector/easyadmin.html.twig");
     }
 }

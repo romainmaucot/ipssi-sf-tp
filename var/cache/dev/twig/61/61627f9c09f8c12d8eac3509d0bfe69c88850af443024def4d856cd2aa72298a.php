@@ -202,6 +202,6 @@ class __TwigTemplate_6f728b673fa6245d721c5e36f5fc1c13c721bbe4e3bdc43ad8d7bc9a30a
         })|raw }}
     </div>
 {% endif %}
-", "@Twig/Exception/trace.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
+", "@Twig/Exception/trace.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
     }
 }

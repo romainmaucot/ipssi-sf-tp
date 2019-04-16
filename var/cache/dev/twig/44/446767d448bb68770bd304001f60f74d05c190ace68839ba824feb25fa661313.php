@@ -166,6 +166,6 @@ class __TwigTemplate_28275b2f2d51cb74cfa822cd5ddbc9eb60f0005315caf036139a529429a
         {{ exception.publicMessage|trans(exception.translationParameters, 'EasyAdminBundle') }}
     </div>
 {% endblock %}
-", "@EasyAdmin/default/exception.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/exception.html.twig");
+", "@EasyAdmin/default/exception.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/exception.html.twig");
     }
 }

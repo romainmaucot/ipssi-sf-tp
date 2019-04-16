@@ -67,6 +67,6 @@ class __TwigTemplate_31d93f8f8c24d8c0a6a0c69d9760ffc696d8309fddef649783efb1c1538
     ? strtr(\$label_format, ['%name%' => \$name, '%id%' => \$id])
     : \$view['form']->humanize(\$name); } ?>
 <button type=\"<?php echo isset(\$type) ? \$view->escape(\$type) : 'button' ?>\" <?php echo \$view['form']->block(\$form, 'button_attributes') ?>><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$label, [], \$translation_domain) : \$label) ?></button>
-", "@Framework/Form/button_widget.html.php", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/framework-bundle/Resources/views/Form/button_widget.html.php");
+", "@Framework/Form/button_widget.html.php", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/framework-bundle/Resources/views/Form/button_widget.html.php");
     }
 }

@@ -44,7 +44,7 @@ class __TwigTemplate_6a00cc91693765b1770c5e7b3167f9e77069a47b07dfb87bcf65dd2dd5c
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@EasyAdmin/page/blank.html.twig"));
 
         // line 1
-        $context["__internal_4094dcf582153d641f23d4a6acc221ef17c92a30e5545e7097533a9f63f9e0e4"] = $this->extensions['EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension']->getBackendConfiguration("translation_domain");
+        $context["__internal_0a5ffc848862587677810ebd0c17588d7a6e09374712bb3e9093d5947ec2d9f1"] = $this->extensions['EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension']->getBackendConfiguration("translation_domain");
         // line 2
         $this->getParent($context)->display($context, array_merge($this->blocks, $blocks));
         
@@ -114,6 +114,6 @@ class __TwigTemplate_6a00cc91693765b1770c5e7b3167f9e77069a47b07dfb87bcf65dd2dd5c
 {% block body_class 'page-blank' %}
 
 {% block content '' %}
-", "@EasyAdmin/page/blank.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/page/blank.html.twig");
+", "@EasyAdmin/page/blank.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/page/blank.html.twig");
     }
 }

@@ -103,6 +103,6 @@ class __TwigTemplate_3c387a9421af86c88ebe6cf7209269e0a1e33ab90a59702c63326f9008d
         <img src=\"{{ asset(value) }}\">
     </div>
 {% endif %}
-", "@EasyAdmin/default/field_image.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_image.html.twig");
+", "@EasyAdmin/default/field_image.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_image.html.twig");
     }
 }

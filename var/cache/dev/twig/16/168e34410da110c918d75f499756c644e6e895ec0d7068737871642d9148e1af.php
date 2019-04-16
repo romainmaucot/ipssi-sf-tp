@@ -477,6 +477,6 @@ class __TwigTemplate_66e2f64777c2efb82f54d19c804139213c7adba68368cfde36082662cb0
         {% endfor %}
     </table>
 {% endmacro %}
-", "@WebProfiler/Collector/events.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
+", "@WebProfiler/Collector/events.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
     }
 }

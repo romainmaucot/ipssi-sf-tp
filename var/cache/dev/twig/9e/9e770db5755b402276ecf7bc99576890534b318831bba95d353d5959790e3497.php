@@ -77,6 +77,6 @@ class __TwigTemplate_322598e1673c218bd08e4dbb87cb51f740934e7c4274120b630b4d78979
         return new Source("<?xml version=\"1.0\" encoding=\"{{ _charset }}\" ?>
 
 <error code=\"{{ status_code }}\" message=\"{{ status_text }}\" />
-", "@Twig/Exception/error.xml.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
+", "@Twig/Exception/error.xml.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/twig-bundle/Resources/views/Exception/error.xml.twig");
     }
 }

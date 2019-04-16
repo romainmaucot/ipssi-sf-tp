@@ -73,6 +73,6 @@ class __TwigTemplate_1b6128559d2faafae6d2d9a72b9671a9a494aa7a09e186287ac3f4b2f75
         return new Source("{% set type = field_options.type_options.type|default('fractional') %}
 {% set scale = field_options.type_options.scale|default(0) %}
 {{ (type == 'fractional' ? value * 100 : value)|number_format(scale) }}%
-", "@EasyAdmin/default/field_percent.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_percent.html.twig");
+", "@EasyAdmin/default/field_percent.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_percent.html.twig");
     }
 }

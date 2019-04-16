@@ -473,6 +473,6 @@ class __TwigTemplate_ce14d69a406ba66d3217ad35c16982e4351b2df5e3057f6731d9e42c9ba
 </ul>
 
 {% block main_menu_after %}{% endblock %}
-", "@EasyAdmin/default/menu.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/menu.html.twig");
+", "@EasyAdmin/default/menu.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/menu.html.twig");
     }
 }

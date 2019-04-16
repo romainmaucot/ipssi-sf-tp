@@ -152,6 +152,6 @@ class __TwigTemplate_4356f67e3681ada6fc09c0fa82c2f65a54a14756bfc1398f3b12f8d1752
     <h2>{{ messages[about].title }}</h2>
     <p>{{ messages[about].message }}</p>
 {% endblock %}
-", "@WebProfiler/Profiler/info.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/info.html.twig");
+", "@WebProfiler/Profiler/info.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/info.html.twig");
     }
 }

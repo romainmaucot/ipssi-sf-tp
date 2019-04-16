@@ -39,6 +39,7 @@ start: docker-compose.override.yml
 	$(FIG) pull || true
 	$(FIG) build
 	$(FIG) up -d
+##	$(EXEC) bin/console hautelook:fixtures:load
 
 .PHONY: stop ## stop the project
 stop:

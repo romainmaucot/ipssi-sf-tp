@@ -81,6 +81,6 @@ class __TwigTemplate_d55e62a56e52f1e0b195138a0ffdab547ace4cbe2055ca84526c577a65f
 {% else %}
     {{ value|number_format(2) }}
 {% endif %}
-", "@EasyAdmin/default/field_decimal.html.twig", "/Users/Maucot/TP_Symfony/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_decimal.html.twig");
+", "@EasyAdmin/default/field_decimal.html.twig", "/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/vendor/easycorp/easyadmin-bundle/src/Resources/views/default/field_decimal.html.twig");
     }
 }
