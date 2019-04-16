@@ -5,6 +5,7 @@
 /.env.*.local
 /public/bundles/
 .idea/
+var/
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

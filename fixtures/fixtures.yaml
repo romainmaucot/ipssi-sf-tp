@@ -1,8 +1,8 @@
-Nelmio\Entity\Users:
-  dummy_{1..10}:
+o\Entity\Users:
+  users_{1..10}:
     username: '<name()>'
-    admin: '<boolean ()>'
-    mail: '<email ()>'
+    admin: '<boolean()>'
+    mail: '<email()>'
     password: 'name()'
-    amount: '<<numberBetween(1, 1000)>'
+    amount: '<numberBetween(1, 1000)>'
 
