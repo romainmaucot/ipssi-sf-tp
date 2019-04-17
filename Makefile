@@ -39,6 +39,7 @@ start: docker-compose.override.yml
 	$(FIG) pull || true
 	$(FIG) build
 	$(FIG) up -d
+	composer install
 	$(EXEC) $(CONSOLE) doctrine:database:create --if-not-exists
 	$(EXEC) $(CONSOLE) hautelook:fixtures:load -q
 
