@@ -50,6 +50,11 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $next_bet;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -176,6 +181,18 @@ class User implements UserInterface
             $this->games->removeElement($game);
             $game->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getNextBet(): ?float
+    {
+        return $this->next_bet;
+    }
+
+    public function setNextBet(?float $next_bet): self
+    {
+        $this->next_bet = $next_bet;
 
         return $this;
     }

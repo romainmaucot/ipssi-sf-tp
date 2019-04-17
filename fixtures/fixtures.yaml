@@ -5,7 +5,7 @@ App\Entity\User:
     roles: '[ROLE_ADMIN]'
     mail: 'admin@admin.com'
     password: '\$argon2i\$v=19\$m=1024,t=2,p=2\$TXBKdms1alJLNU9YVkRFMQ\$S3WMOhS2xVxfgZkO/OjpLJdnw5NYicgdRa9OePuA96I'
-    amount: '<numberBetween(1, 1000)>'
+    amount: '<numberBetween(1, 30)>'
 
   user:
     __construct: false
@@ -14,6 +14,14 @@ App\Entity\User:
     mail: 'user@user.com'
     password: '\$argon2i\$v=19\$m=1024,t=2,p=2\$N0h1L3R5eU1ORmpCc2t3ZA\$jy66fKObjkfGqJRShx/pScrxuEcLFwd6mo7GzIHFC6c'
     amount: '<numberBetween(1, 1000)>'
+
+
+App\Entity\Game:
+  game{1..4}:
+    __construct: false
+    started: "<dateTimeBetween('1 year ago', 'now')>"
+    amount: '<numberBetween(1, 1000)>'
+
 
 App\Entity\Article:
   article-{1..15}:

@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
     {% endif %}
-
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
+    <div class="">
+
+        {% for case in cases %}
+
+        {% else %}
+            <span colspan="5">no records found</span>
+        {% endfor %}
+    </div>
 {% endblock %}

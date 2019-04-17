@@ -37,22 +37,37 @@ class GameController extends AbstractController
         if(!$lastId){
           throw new Exception('Il n\'y a pas de jeux');
         }
+
+        $game = new Game();
+        $cases = $game->getCases();
+        $aCases = [];
+        foreach ($cases as $row){
+            $aCases[$row->getNumber()] = $row->getColor();
+        }
+
         $form = $this->createForm(PlayType::class, [
             'round'=> $lastId[0]->getId(),
             /** la mise par défault est égale à 10% du montant total du compte en banque de l'utilisateur */
-            'mise'=> ( $this->getUser()->getAmount() * (0.10) ),
+            'mise'=>  ($this->getUser() ? $this->getUser()->getAmount() :0 ) * (0.10),
+            'numero'=> $aCases,
         ]);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            if(!$this->getUser()) {
+                return $this->redirectToRoute('game_play',['message' => 'Vous n\'ête pas connecté']);
+            }
             //-------------------------Déduction de mise----------------------------------------
             $newAmount = $this->getUser()->getAmount() - $data['mise'];
             $this->getUser()->setAmount($newAmount);
+
+            $number = $data['numero'];
+
             //--------------------------Game---------------------------------------
-            $game = new Game();
             $game->addUser($this->getUser());
-            $game->setStarted(\DateTime::class);
+            $game->setStarted(DateTime::class);
             //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
@@ -69,6 +84,7 @@ class GameController extends AbstractController
 
         return $this->render('game/play.html.twig', [
             'form' => $form->createView(),
+            'cases' => $cases ? : []
         ]);
     }
 }
