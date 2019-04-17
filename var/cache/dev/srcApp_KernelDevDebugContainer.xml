@@ -296,17 +296,17 @@
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
     <parameter key="easyadmin.config" type="collection">
       <parameter key="entities" type="collection">
-        <parameter key="Comments" type="collection">
-          <parameter key="class">App\Entity\Comments</parameter>
-          <parameter key="name">Comments</parameter>
+        <parameter key="Comment" type="collection">
+          <parameter key="class">App\Entity\Comment</parameter>
+          <parameter key="name">Comment</parameter>
         </parameter>
-        <parameter key="Articles" type="collection">
-          <parameter key="class">App\Entity\Articles</parameter>
-          <parameter key="name">Articles</parameter>
+        <parameter key="Article" type="collection">
+          <parameter key="class">App\Entity\Article</parameter>
+          <parameter key="name">Article</parameter>
         </parameter>
-        <parameter key="Users" type="collection">
-          <parameter key="class">App\Entity\Users</parameter>
-          <parameter key="name">Users</parameter>
+        <parameter key="User" type="collection">
+          <parameter key="class">App\Entity\User</parameter>
+          <parameter key="name">User</parameter>
         </parameter>
       </parameter>
       <parameter key="site_name">EasyAdmin</parameter>
@@ -489,20 +489,10 @@
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\CommentController"/>
       </call>
     </service>
-    <service id="App\Controller\UsersController" class="App\Controller\UsersController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\UsersController"/>
-      </call>
-    </service>
     <service id="App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
-    <service id="App\Form\Users1Type" class="App\Form\Users1Type" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true">
@@ -513,7 +503,7 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -779,7 +769,6 @@
       <argument type="collection">
         <argument>App\Form\ArticleType</argument>
         <argument>App\Form\CommentType</argument>
-        <argument>App\Form\Users1Type</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
@@ -1032,7 +1021,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.6rcnOWW"/>
+      <argument type="service" id=".service_locator.ghHLNya"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2157,14 +2146,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -3008,7 +2989,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.DHzVdFr"/>
+      <argument type="service" id=".service_locator.46MI6_l"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3646,7 +3627,14 @@
       <argument>none</argument>
     </service>
     <service id="security.encoder_factory.generic" class="Symfony\Component\Security\Core\Encoder\EncoderFactory" public="false">
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="App\Entity\User" type="collection">
+          <argument key="class">Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder</argument>
+          <argument key="arguments" type="collection">
+            <argument>13</argument>
+          </argument>
+        </argument>
+      </argument>
     </service>
     <service id="security.user_password_encoder.generic" class="Symfony\Component\Security\Core\Encoder\UserPasswordEncoder" public="false">
       <argument type="service" id="security.encoder_factory.generic"/>
@@ -3766,7 +3754,7 @@
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument></argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -4068,8 +4056,11 @@
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="security.logout_url_generator"/>
     </service>
-    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <argument type="collection"/>
+    <service id="security.user.provider.concrete.app_user_provider" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+      <argument type="service" id="doctrine"/>
+      <argument>App\Entity\User</argument>
+      <argument>username</argument>
+      <argument>null</argument>
     </service>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>dev</argument>
@@ -4100,7 +4091,7 @@
       <argument>null</argument>
       <argument>true</argument>
       <argument>false</argument>
-      <argument>security.user.provider.concrete.in_memory</argument>
+      <argument>security.user.provider.concrete.app_user_provider</argument>
       <argument>main</argument>
       <argument>null</argument>
       <argument>null</argument>
@@ -4113,7 +4104,7 @@
     <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument>main</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -4161,7 +4152,9 @@
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
       <argument type="service" id="security.encoder_factory.generic"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>App\Entity\User</argument>
+      </argument>
       <call method="setName">
         <argument>security:encode-password</argument>
       </call>
@@ -4945,21 +4938,16 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UsersController" class="App\Controller\UsersController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UsersController" class="App\Controller\UsersController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\UsersController" class="App\Controller\UsersController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentType" class="App\Form\CommentType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Users1Type" class="App\Form\Users1Type" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\Users1Type" class="App\Form\Users1Type" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="maker.auto_command.make_auth" class="Symfony\Bundle\MakerBundle\Command\MakerCommand" public="false">
       <tag name="console.command" command="make:auth"/>
       <argument type="service" id="maker.maker.make_authenticator"/>
@@ -5146,19 +5134,7 @@
         <argument key="comment" type="service" id=".errored..service_locator.Gn3oxQ2.App\Entity\Comment"/>
       </argument>
     </service>
-    <service id=".service_locator.LVd5Q4X" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="usersRepository" type="service" id="App\Repository\UsersRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.CLREBB2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="user" type="service" id=".errored..service_locator.CLREBB2.App\Entity\Users"/>
-      </argument>
-    </service>
-    <service id=".service_locator.3ghlDSp" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.7j7d_0w" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service" id=".service_locator.NUP9Hmn"/>
@@ -5169,10 +5145,6 @@
         <argument key="App\Controller\CommentController::edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController::index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController::show" type="service" id=".service_locator.Gn3oxQ2"/>
-        <argument key="App\Controller\UsersController::delete" type="service" id=".service_locator.CLREBB2"/>
-        <argument key="App\Controller\UsersController::edit" type="service" id=".service_locator.CLREBB2"/>
-        <argument key="App\Controller\UsersController::index" type="service" id=".service_locator.LVd5Q4X"/>
-        <argument key="App\Controller\UsersController::show" type="service" id=".service_locator.CLREBB2"/>
         <argument key="App\Controller\ArticleController:delete" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:edit" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:index" type="service" id=".service_locator.eusJIZx"/>
@@ -5181,10 +5153,6 @@
         <argument key="App\Controller\CommentController:edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController:index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController:show" type="service" id=".service_locator.Gn3oxQ2"/>
-        <argument key="App\Controller\UsersController:delete" type="service" id=".service_locator.CLREBB2"/>
-        <argument key="App\Controller\UsersController:edit" type="service" id=".service_locator.CLREBB2"/>
-        <argument key="App\Controller\UsersController:index" type="service" id=".service_locator.LVd5Q4X"/>
-        <argument key="App\Controller\UsersController:show" type="service" id=".service_locator.CLREBB2"/>
       </argument>
     </service>
     <service id=".service_locator.37xBtZ2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5256,12 +5224,11 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.6rcnOWW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ghHLNya" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ArticleType" type="service" id="App\Form\ArticleType"/>
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType"/>
-        <argument key="App\Form\Users1Type" type="service" id="App\Form\Users1Type"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminAutocompleteType" type="service" id="easyadmin.form.type.autocomplete"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminBatchFormType" type="service" id="easyadmin.form.type.batch"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminDividerType" type="service" id="easyadmin.form.type.divider"/>
@@ -5279,12 +5246,12 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.DHzVdFr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.46MI6_l" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArticleRepository" type="service" id="App\Repository\ArticleRepository"/>
         <argument key="App\Repository\CommentRepository" type="service" id="App\Repository\CommentRepository"/>
-        <argument key="App\Repository\UsersRepository" type="service" id="App\Repository\UsersRepository"/>
+        <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id="monolog.logger.request" class="Symfony\Bridge\Monolog\Logger">
@@ -5470,12 +5437,6 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
-    <service id=".service_locator.KTVqfp6.App\Controller\UsersController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\UsersController"/>
-      <argument>App\Controller\UsersController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.KTVqfp6" method="withContext"/>
-    </service>
     <service id=".service_locator._pu.0Tb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5596,13 +5557,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.3ghlDSp"/>
+      <argument type="service" id=".service_locator.7j7d_0w"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id=".errored..service_locator.NUP9Hmn.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.Gn3oxQ2.App\Entity\Comment" class="App\Entity\Comment"/>
-    <service id=".errored..service_locator.CLREBB2.App\Entity\Users" class="App\Entity\Users"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.Q9l3.t8"/>
       <argument type="collection">
@@ -5895,7 +5855,7 @@
     <service id="Symfony\Component\Security\Http\HttpUtils" alias="security.http_utils" public="false"/>
     <service id="Symfony\Component\Security\Guard\GuardAuthenticatorHandler" alias="security.authentication.guard_handler" public="false"/>
     <service id="security.firewall" alias="debug.security.firewall" public="false"/>
-    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.in_memory"/>
+    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.app_user_provider"/>
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
     <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
@@ -5946,7 +5906,7 @@
     <service id="hautelook_alice.resolver.bundle" alias="hautelook_alice.resolver.bundle.no_bundle_resolver" public="true"/>
     <service id="hautelook_alice.resolver.file" alias="hautelook_alice.resolver.file.kernel_file_resolver" public="true"/>
     <service id="hautelook_alice.locator" alias="hautelook_alice.locator.environmentless" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.3ghlDSp"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.7j7d_0w"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>

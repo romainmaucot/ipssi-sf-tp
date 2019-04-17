@@ -1,8 +1,7 @@
-App\Entity\Users:
+App\Entity\User:
   users:
     __construct: false
     username: 'admin'
-    admin: true
     mail: 'admin@admin.com'
     password: 'admin'
     amount: '<numberBetween(1, 1000)>'
@@ -10,7 +9,6 @@ App\Entity\Users:
   users{1..10}:
     __construct: false
     username: '<name()>'
-    admin: false
     mail: '<email()>'
     password: '<name()>'
     amount: '<numberBetween(1, 1000)>'
@@ -28,4 +26,5 @@ App\Entity\Comment:
     article: "@article-<numberBetween(1,10)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+    censored: false
 
