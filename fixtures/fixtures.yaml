@@ -24,8 +24,7 @@ App\Entity\Article:
 App\Entity\Comment:
   comment{1..90}:
     __construct: false
-    article: "@article-<numberBetween(1,10)>"
+    article: "@article-<numberBetween(1,4)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
     censored: false
-

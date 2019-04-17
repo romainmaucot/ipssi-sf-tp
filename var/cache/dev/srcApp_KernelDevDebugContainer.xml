@@ -489,10 +489,20 @@
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\CommentController"/>
       </call>
     </service>
+    <service id="App\Controller\GameController" class="App\Controller\GameController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\GameController"/>
+      </call>
+    </service>
     <service id="App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\PlayType" class="App\Form\PlayType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true">
@@ -500,6 +510,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -769,6 +783,7 @@
       <argument type="collection">
         <argument>App\Form\ArticleType</argument>
         <argument>App\Form\CommentType</argument>
+        <argument>App\Form\PlayType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
@@ -1021,7 +1036,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.ghHLNya"/>
+      <argument type="service" id=".service_locator.uWRb2FW"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2146,14 +2161,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -2997,7 +3004,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.46MI6_l"/>
+      <argument type="service" id=".service_locator.WPusUPM"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4946,14 +4953,21 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GameController" class="App\Controller\GameController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentType" class="App\Form\CommentType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PlayType" class="App\Form\PlayType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\PlayType" class="App\Form\PlayType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\GameRepository" class="App\Repository\GameRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="maker.auto_command.make_auth" class="Symfony\Bundle\MakerBundle\Command\MakerCommand" public="false">
@@ -5142,7 +5156,13 @@
         <argument key="comment" type="service" id=".errored..service_locator.Gn3oxQ2.App\Entity\Comment"/>
       </argument>
     </service>
-    <service id=".service_locator.7j7d_0w" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.qO6N7LW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="gameRepository" type="service" id="App\Repository\GameRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.8afVnJk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service" id=".service_locator.NUP9Hmn"/>
@@ -5153,6 +5173,7 @@
         <argument key="App\Controller\CommentController::edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController::index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController::show" type="service" id=".service_locator.Gn3oxQ2"/>
+        <argument key="App\Controller\GameController::play" type="service" id=".service_locator.qO6N7LW"/>
         <argument key="App\Controller\ArticleController:delete" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:edit" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:index" type="service" id=".service_locator.eusJIZx"/>
@@ -5161,6 +5182,7 @@
         <argument key="App\Controller\CommentController:edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController:index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController:show" type="service" id=".service_locator.Gn3oxQ2"/>
+        <argument key="App\Controller\GameController:play" type="service" id=".service_locator.qO6N7LW"/>
       </argument>
     </service>
     <service id=".service_locator.37xBtZ2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5232,11 +5254,12 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.ghHLNya" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.uWRb2FW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ArticleType" type="service" id="App\Form\ArticleType"/>
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType"/>
+        <argument key="App\Form\PlayType" type="service" id="App\Form\PlayType"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminAutocompleteType" type="service" id="easyadmin.form.type.autocomplete"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminBatchFormType" type="service" id="easyadmin.form.type.batch"/>
         <argument key="EasyCorp\Bundle\EasyAdminBundle\Form\Type\EasyAdminDividerType" type="service" id="easyadmin.form.type.divider"/>
@@ -5254,11 +5277,12 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.46MI6_l" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.WPusUPM" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArticleRepository" type="service" id="App\Repository\ArticleRepository"/>
         <argument key="App\Repository\CommentRepository" type="service" id="App\Repository\CommentRepository"/>
+        <argument key="App\Repository\GameRepository" type="service" id="App\Repository\GameRepository"/>
         <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
@@ -5445,6 +5469,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
+    <service id=".service_locator.KTVqfp6.App\Controller\GameController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\GameController"/>
+      <argument>App\Controller\GameController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.KTVqfp6" method="withContext"/>
+    </service>
     <service id=".service_locator._pu.0Tb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5565,7 +5595,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.7j7d_0w"/>
+      <argument type="service" id=".service_locator.8afVnJk"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -5914,7 +5944,7 @@
     <service id="hautelook_alice.resolver.bundle" alias="hautelook_alice.resolver.bundle.no_bundle_resolver" public="true"/>
     <service id="hautelook_alice.resolver.file" alias="hautelook_alice.resolver.file.kernel_file_resolver" public="true"/>
     <service id="hautelook_alice.locator" alias="hautelook_alice.locator.environmentless" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.7j7d_0w"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.8afVnJk"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-<?php return [PHP_INT_MAX, 1555485244];
-=======
-<?php return [PHP_INT_MAX, 1555490828];
->>>>>>> romain
+<?php return [PHP_INT_MAX, 1555506487];
