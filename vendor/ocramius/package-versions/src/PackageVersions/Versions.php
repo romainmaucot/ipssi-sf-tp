@@ -126,7 +126,11 @@ final class Versions
   'symfony/polyfill-php71' => '*@302ba4ce818810974898496437b7fbdef3d50691',
   'symfony/polyfill-php70' => '*@302ba4ce818810974898496437b7fbdef3d50691',
   'symfony/polyfill-php56' => '*@302ba4ce818810974898496437b7fbdef3d50691',
+<<<<<<< HEAD
+  '__root__' => 'dev-master@302ba4ce818810974898496437b7fbdef3d50691',
+=======
   '__root__' => 'dev-romain@302ba4ce818810974898496437b7fbdef3d50691',
+>>>>>>> romain
 );
 
     private function __construct()

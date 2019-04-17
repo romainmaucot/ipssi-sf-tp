@@ -45,7 +45,6 @@ start: docker-compose.override.yml
 	$(EXEC) $(CONSOLE) hautelook:fixtures:load -q
 
 
-
 .PHONY: stop ## stop the project
 stop:
 stop:
