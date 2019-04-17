@@ -95,22 +95,40 @@ class GameController extends AbstractController
     /**
      * @Route("/game/run", name="game_run")
      */
-    public function run(UserRepository $userRepository) : Void
+    public function run(UserRepository $userRepository) : Response
     {
         $game = new Game();
         $cases = $game->getCases();
 
+
         $userManager = new UserManager();
         $aPlayer =  $userRepository->nextPlayers();
+        //----------------Lance la roue-------------------
+        $finalResult = $cases[array_rand($cases, 1)];
+        //------------------------------------------------
         if(!is_null($aPlayer)){
+            $result = [];
             foreach ($aPlayer as $player){
                 $numCase    = $userManager->getNumber($player->getNextBet());
                 $betAmount  = $userManager->getMise($player->getNextBet());
 
-                $key = array_search($numCase, $cases);
-                //$round->addBet(new Bet($betAmount, new CaseRoulette($numCase, $cases[$key]->getColor()),$player));
-            }
-        }exit;
+                $numCase = array_filter(explode(',', $numCase));
+                $betAmount = array_filter(explode(',', $betAmount));
 
+                foreach($numCase as $key => $case)
+                {
+
+                    if($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor())
+                    {
+                        $result[$player->getId()] = 'à Gagné '.$betAmount[$key].' x...';
+                    }
+                    else
+                    {
+                        $result[$player->getId()] = 'à Perdu ';
+                    }
+                }
+            }
+        }
+        return $this->render('game/result.html.twig',['result' => $result]);
     }
 }
