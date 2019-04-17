@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
 use App\Form\PlayType;
 use App\Repository\GameRepository;
+use \DateTime;
 
 class GameController extends AbstractController
 {
@@ -36,21 +37,34 @@ class GameController extends AbstractController
         if(!$lastId){
           throw new Exception('Il n\'y a pas de jeux');
         }
-        $form = $this->createForm(PlayType::class, ['round'=> $lastId[0]->getId()]);
+        $form = $this->createForm(PlayType::class, [
+            'round'=> $lastId[0]->getId(),
+            /** la mise par défault est égale à 10% du montant total du compte en banque de l'utilisateur */
+            'mise'=> ( $this->getUser()->getAmount() * (0.10) ),
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            //-------------------------Mise----------------------------------------
+            //-------------------------Déduction de mise----------------------------------------
             $newAmount = $this->getUser()->getAmount() - $data['mise'];
             $this->getUser()->setAmount($newAmount);
+            //--------------------------Game---------------------------------------
+            $game = new Game();
+            $game->addUser($this->getUser());
+            $game->setStarted(\DateTime::class);
+            //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
-            $entityManager->flush();
-            //-----------------------------------------------------------------
+            $entityManager->persist($game);
+            try {
+                $entityManager->flush();
+            } catch (Exception $e) {
+                echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
+            $msg = 'Votre mise à bien été prise en compte';
 
-
-            return $this->redirectToRoute('game_play');
+            return $this->redirectToRoute('game_play',['message' => $msg]);
         }
 
         return $this->render('game/play.html.twig', [

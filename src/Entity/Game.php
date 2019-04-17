@@ -28,6 +28,11 @@ class Game
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Amount;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -72,6 +77,18 @@ class Game
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->Amount;
+    }
+
+    public function setAmount(int $Amount): self
+    {
+        $this->Amount = $Amount;
 
         return $this;
     }
