@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,14 +33,22 @@ class GameController extends AbstractController
     public function play(GameRepository $gameRepository, Request $request) : Response
     {
         $lastId = $gameRepository->findLast();
+        if(!$lastId){
+          throw new Exception('Il n\'y a pas de jeux');
+        }
         $form = $this->createForm(PlayType::class, ['round'=> $lastId[0]->getId()]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            //$entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($article);
-            //$entityManager->flush();
+            //-------------------------Mise----------------------------------------
+            $newAmount = $this->getUser()->getAmount() - $data['mise'];
+            $this->getUser()->setAmount($newAmount);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            //-----------------------------------------------------------------
+
 
             return $this->redirectToRoute('game_play');
         }

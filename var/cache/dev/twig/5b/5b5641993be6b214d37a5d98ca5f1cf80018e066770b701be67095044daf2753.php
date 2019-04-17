@@ -75,6 +75,12 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
                         <a class=\"nav-link\" href=\"/account\">Mon compte</a>
                     </li>
                     <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"";
+        // line 30
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("game_play");
+        echo "\">Jouer</a>
+                    </li>
+                    <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"/logout\">Déconnexion</a>
                     </li>
                 </ul>
@@ -84,12 +90,12 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
     </header>
     <body>
         ";
-        // line 38
+        // line 41
         $this->displayBlock('body', $context, $blocks);
-        // line 39
+        // line 42
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 40
+        // line 43
         echo "    </body>
 </html>
 ";
@@ -139,7 +145,7 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
 
     }
 
-    // line 38
+    // line 41
     public function block_body($context, array $blocks = [])
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -156,7 +162,7 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
 
     }
 
-    // line 39
+    // line 42
     public function block_javascripts($context, array $blocks = [])
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -178,9 +184,14 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
         return "base.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  160 => 39,  143 => 38,  132 => 8,  123 => 7,  105 => 6,  93 => 40,  90 => 39,  88 => 38,  58 => 10,  56 => 7,  52 => 6,  45 => 1,);
+        return array (  166 => 42,  149 => 41,  138 => 8,  129 => 7,  111 => 6,  99 => 43,  96 => 42,  94 => 41,  80 => 30,  58 => 10,  56 => 7,  52 => 6,  45 => 1,);
     }
 
     public function getSourceContext()
@@ -212,6 +223,9 @@ class __TwigTemplate_aaf7a164deffea816be7ead945a795e51c557aa319328d00efda08a89a2
                     </li>
                     <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"/account\">Mon compte</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"{{ path('game_play') }}\">Jouer</a>
                     </li>
                     <li class=\"nav-item\">
                         <a class=\"nav-link\" href=\"/logout\">Déconnexion</a>

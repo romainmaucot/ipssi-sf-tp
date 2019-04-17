@@ -489,19 +489,18 @@
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\CommentController"/>
       </call>
     </service>
-<<<<<<< HEAD
-    <service id="App\Controller\SecurityController" class="App\Controller\SecurityController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\SecurityController"/>
-=======
     <service id="App\Controller\GameController" class="App\Controller\GameController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\GameController"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+      </call>
+    </service>
+    <service id="App\Controller\SecurityController" class="App\Controller\SecurityController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\SecurityController"/>
       </call>
     </service>
     <service id="App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true">
@@ -5108,15 +5107,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
-<<<<<<< HEAD
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
-=======
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GameController" class="App\Controller\GameController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\GameController" class="App\Controller\GameController" autowire="true" autoconfigure="true" abstract="true"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentType" class="App\Form\CommentType" autowire="true" abstract="true"/>
@@ -5317,23 +5313,19 @@
         <argument key="comment" type="service" id=".errored..service_locator.Gn3oxQ2.App\Entity\Comment"/>
       </argument>
     </service>
-<<<<<<< HEAD
-    <service id=".service_locator.EbLunuf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
-      </argument>
-    </service>
-    <service id=".service_locator.Pf7qU4e" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-=======
     <service id=".service_locator.qO6N7LW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="gameRepository" type="service" id="App\Repository\GameRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.8afVnJk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+    <service id=".service_locator.EbLunuf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
+      </argument>
+    </service>
+    <service id=".service_locator.md_eeuK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service" id=".service_locator.NUP9Hmn"/>
@@ -5344,11 +5336,8 @@
         <argument key="App\Controller\CommentController::edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController::index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController::show" type="service" id=".service_locator.Gn3oxQ2"/>
-<<<<<<< HEAD
-        <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.EbLunuf"/>
-=======
         <argument key="App\Controller\GameController::play" type="service" id=".service_locator.qO6N7LW"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+        <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.EbLunuf"/>
         <argument key="App\Controller\ArticleController:delete" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:edit" type="service" id=".service_locator.NUP9Hmn"/>
         <argument key="App\Controller\ArticleController:index" type="service" id=".service_locator.eusJIZx"/>
@@ -5357,11 +5346,8 @@
         <argument key="App\Controller\CommentController:edit" type="service" id=".service_locator.Gn3oxQ2"/>
         <argument key="App\Controller\CommentController:index" type="service" id=".service_locator.Ye_qt7H"/>
         <argument key="App\Controller\CommentController:show" type="service" id=".service_locator.Gn3oxQ2"/>
-<<<<<<< HEAD
-        <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.EbLunuf"/>
-=======
         <argument key="App\Controller\GameController:play" type="service" id=".service_locator.qO6N7LW"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+        <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.EbLunuf"/>
       </argument>
     </service>
     <service id=".service_locator.37xBtZ2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5648,15 +5634,15 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
-<<<<<<< HEAD
-    <service id=".service_locator.KTVqfp6.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\SecurityController"/>
-      <argument>App\Controller\SecurityController</argument>
-=======
     <service id=".service_locator.KTVqfp6.App\Controller\GameController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\GameController"/>
       <argument>App\Controller\GameController</argument>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.KTVqfp6" method="withContext"/>
+    </service>
+    <service id=".service_locator.KTVqfp6.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\SecurityController"/>
+      <argument>App\Controller\SecurityController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
@@ -5780,11 +5766,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-<<<<<<< HEAD
-      <argument type="service" id=".service_locator.Pf7qU4e"/>
-=======
-      <argument type="service" id=".service_locator.8afVnJk"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+      <argument type="service" id=".service_locator.md_eeuK"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -6133,11 +6115,7 @@
     <service id="hautelook_alice.resolver.bundle" alias="hautelook_alice.resolver.bundle.no_bundle_resolver" public="true"/>
     <service id="hautelook_alice.resolver.file" alias="hautelook_alice.resolver.file.kernel_file_resolver" public="true"/>
     <service id="hautelook_alice.locator" alias="hautelook_alice.locator.environmentless" public="true"/>
-<<<<<<< HEAD
-    <service id="argument_resolver.controller_locator" alias=".service_locator.Pf7qU4e"/>
-=======
-    <service id="argument_resolver.controller_locator" alias=".service_locator.8afVnJk"/>
->>>>>>> 90dfe88644af67b1ad8a076e2715be7212266567
+    <service id="argument_resolver.controller_locator" alias=".service_locator.md_eeuK"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>
