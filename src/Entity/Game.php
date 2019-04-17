@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Entity\CaseRoulette;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
  */
@@ -34,16 +32,6 @@ class Game
      * @ORM\Column(type="integer")
      */
     private $Amount;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $bet;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $number;
 
     public function __construct()
     {
@@ -119,29 +107,5 @@ class Game
         }
 
         return $cases;
-    }
-
-    public function getBet(): ?int
-    {
-        return $this->bet;
-    }
-
-    public function setBet(int $bet): self
-    {
-        $this->bet = $bet;
-
-        return $this;
-    }
-
-    public function getNumber(): ?int
-    {
-        return $this->number;
-    }
-
-    public function setNumber(int $number): self
-    {
-        $this->number = $number;
-
-        return $this;
     }
 }

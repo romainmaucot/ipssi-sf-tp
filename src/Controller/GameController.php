@@ -2,22 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
+
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Game;
 use App\Form\PlayType;
 use App\Repository\GameRepository;
-use \DateTime;
+use App\Manager\UserManager;
 
 class GameController extends AbstractController
 {
     /**
      * @Route("/game", name="game")
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
@@ -25,7 +27,6 @@ class GameController extends AbstractController
     }
 
     /**
-     * /**
      * @Route("/game/play", name="game_play")
      * @param GameRepository $gameRepository
      * @param Request $request
@@ -44,11 +45,10 @@ class GameController extends AbstractController
         foreach ($cases as $row){
             $aCases[$row->getNumber()] = $row->getColor();
         }
-
         $form = $this->createForm(PlayType::class, [
             'round'=> $lastId[0]->getId(),
             /** la mise par défault est égale à 10% du montant total du compte en banque de l'utilisateur */
-            'mise'=>  ($this->getUser() ? $this->getUser()->getAmount() :0 ) * (0.10),
+            'mise'=>  ($this->getUser() ? $this->getUser()->getAmount() : 0 ) * (0.10),
             'numero'=> $aCases,
         ]);
 
@@ -56,18 +56,22 @@ class GameController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+
             if(!$this->getUser()) {
                 return $this->redirectToRoute('game_play',['message' => 'Vous n\'ête pas connecté']);
             }
             //-------------------------Déduction de mise----------------------------------------
-            $newAmount = $this->getUser()->getAmount() - $data['mise'];
+            $newAmount = ($this->getUser()->getAmount()) - ($data['mise']);
             $this->getUser()->setAmount($newAmount);
-
-            $number = $data['numero'];
+            //--------------------------Prépare la mise pour la prochaine partie-----------------------------------
+            $userManager = new UserManager();
+            $numero = $userManager->getNumber($this->getUser()->getNextBet()).$data['case'];
+            $mise   = $userManager->getMise($this->getUser()->getNextBet()).$data['mise'];
+            $this->getUser()->setNextBet($numero.'-'.$mise);
 
             //--------------------------Game---------------------------------------
             $game->addUser($this->getUser());
-            $game->setStarted(DateTime::class);
+            $game->setStarted( new \DateTime('now'));
             //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
@@ -86,5 +90,27 @@ class GameController extends AbstractController
             'form' => $form->createView(),
             'cases' => $cases ? : []
         ]);
+    }
+
+    /**
+     * @Route("/game/run", name="game_run")
+     */
+    public function run(UserRepository $userRepository) : Void
+    {
+        $game = new Game();
+        $cases = $game->getCases();
+
+        $userManager = new UserManager();
+        $aPlayer =  $userRepository->nextPlayers();
+        if(!is_null($aPlayer)){
+            foreach ($aPlayer as $player){
+                $numCase    = $userManager->getNumber($player->getNextBet());
+                $betAmount  = $userManager->getMise($player->getNextBet());
+
+                $key = array_search($numCase, $cases);
+                //$round->addBet(new Bet($betAmount, new CaseRoulette($numCase, $cases[$key]->getColor()),$player));
+            }
+        }exit;
+
     }
 }

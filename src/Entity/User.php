@@ -51,7 +51,7 @@ class User implements UserInterface
     private $games;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $next_bet;
 
@@ -185,12 +185,19 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getNextBet(): ?float
+    /**
+     * @return float|null
+     */
+    public function getNextBet(): ?string
     {
         return $this->next_bet;
     }
 
-    public function setNextBet(?float $next_bet): self
+    /**
+     * @param float|null $next_bet
+     * @return User
+     */
+    public function setNextBet(?string $next_bet): self
     {
         $this->next_bet = $next_bet;
 

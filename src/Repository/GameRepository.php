@@ -27,6 +27,7 @@ class GameRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */
