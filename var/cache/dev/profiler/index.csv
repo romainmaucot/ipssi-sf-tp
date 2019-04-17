@@ -225,3 +225,15 @@ fcbdfd,172.21.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=Users&menu
 413502,172.21.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555493187,,200
 77276e,172.21.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555493329,,200
 9c0469,172.23.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555494111,,200
+01c02b,127.0.0.1,GET,http://127.0.0.1:8000/,1555494916,,404
+5b4922,127.0.0.1,GET,http://127.0.0.1:8000/admin,1555494925,b81a32,200
+b81a32,127.0.0.1,GET,http://127.0.0.1:8000/admin,1555494926,,401
+2761fd,127.0.0.1,GET,http://127.0.0.1:8000/admin,1555495408,,301
+a43a5d,127.0.0.1,GET,http://127.0.0.1:8000/admin/,1555495411,,302
+e8e54d,127.0.0.1,GET,http://127.0.0.1:8000/admin/?action=list&entity=Comment,1555495434,2061b4,200
+2061b4,127.0.0.1,GET,http://127.0.0.1:8000/admin/?action=list&entity=Comment,1555495434,,500
+8bad83,127.0.0.1,GET,http://127.0.0.1:8000/admin/?action=list&entity=Comment,1555495597,98cdc3,200
+98cdc3,127.0.0.1,GET,http://127.0.0.1:8000/admin/?action=list&entity=Comment,1555495597,,500
+2a06b2,172.23.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555495899,,200
+9d6a33,172.23.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555495910,,200
+65795b,172.23.0.1,GET,http://127.0.0.1:8082/admin/?action=list&entity=User&menuIndex=2&submenuIndex=-1,1555496030,,200
