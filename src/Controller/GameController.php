@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -35,15 +34,15 @@ class GameController extends AbstractController
     public function play(GameRepository $gameRepository, Request $request) : Response
     {
         $lastId = $gameRepository->findLast();
-        if(!$lastId){
-          throw new Exception('Il n\'y a pas de jeux');
+        if( !$lastId ){
+            throw new Exception('Il n\'y a pas de jeux');
         }
 
         $game = new Game();
         $cases = $game->getCases();
         $aCases = [];
         foreach ($cases as $row){
-            $aCases[$row->getNumber()] = $row->getColor();
+            $aCases[ $row->getNumber() ] = $row->getColor();
         }
         $form = $this->createForm(PlayType::class, [
             'round'=> $lastId[0]->getId(),
@@ -54,7 +53,7 @@ class GameController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if( $form->isSubmitted() && $form->isValid() ) {
             $data = $form->getData();
 
             if(!$this->getUser()) {

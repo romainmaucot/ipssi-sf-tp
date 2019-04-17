@@ -21,10 +21,13 @@ class PlayType extends AbstractType
         foreach ($cases as $row){
             $aCases[$row->getNumber()] = $row->getNumber();
         }
+
         sort($aCases);
         $builder
             ->add('round')
+
             ->add('mise',IntegerType::class)
+
             ->add('case',ChoiceType::class, [
                 'choices' => $aCases,
             ])

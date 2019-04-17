@@ -7,26 +7,22 @@
  */
 
 namespace App\Manager;
+
 use App\Entity\User;
 
 class UserManager
 {
-
-    public function getBet(User $user) : array
-    {
-        $data = explode('-',$user->getNextBet());
-        return [];
-    }
-
     public function getMise(string $bet) : string
     {
         $data = strstr($bet, '-', true);
+
         return $data ? $data.',' : '';
     }
     public function getNumber(string $bet) : string
     {
         $data = strstr($bet, '-', false);
         $data = substr($data, 1,strlen($data));
+
         return $data ? $data.',' : '';
     }
 }
