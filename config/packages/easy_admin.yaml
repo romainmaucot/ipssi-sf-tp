@@ -1,6 +1,6 @@
 easy_admin:
     entities:
 #        # List the entity class name you want to manage
-        - App\Entity\Comments
-        - App\Entity\Articles
-        - App\Entity\Users
+        - App\Entity\Comment
+        - App\Entity\Article
+        - App\Entity\User

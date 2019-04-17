@@ -1,25 +1,24 @@
-App\Entity\Users:
-  users:
+App\Entity\User:
+  admin:
     __construct: false
     username: 'admin'
-    admin: true
+    roles: '[ROLES]'
     mail: 'admin@admin.com'
     password: 'admin'
     amount: '<numberBetween(1, 1000)>'
 
-  users{1..10}:
+  user:
     __construct: false
-    username: '<name()>'
-    admin: false
-    mail: '<email()>'
-    password: '<name()>'
+    username: 'user'
+    mail: 'user@user.com'
+    password: 'user'
     amount: '<numberBetween(1, 1000)>'
 
 App\Entity\Article:
-  article-{1..10}:
+  article-{1..15}:
       __construct: false
-      title (unique): 'Partie : <numberBetween(1,10)>'
-      content: 'Résultats de la partie'
+      title (unique): 'Partie : <numberBetween(1,100)>'
+      content: 'Résultats de la partie : user gagne <numberBetween(1, 1000)> euros'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
 
 App\Entity\Comment:
@@ -28,4 +27,5 @@ App\Entity\Comment:
     article: "@article-<numberBetween(1,10)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+    censored: false
 
