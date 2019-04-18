@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block body %}
     <h1>Article index</h1>
@@ -8,24 +8,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Publish_date</th>
-                <th>actions</th>
+                <th>Titre</th>
+                <th>Publié le</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
             <tr>
-                <td>{{ article.id }}</td>
                 <td>{{ article.title }}</td>
-                <td>{{ article.content }}</td>
                 <td>{{ article.publishDate ? article.publishDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
-                </td>
+                <td><a href="{{ path('article_show', {'id': article.id}) }}">Consulter</a></td>
             </tr>
         {% else %}
             <tr>
