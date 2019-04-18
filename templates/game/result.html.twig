@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    {% for row in result %}
+        {{ row }}
+    {% else %}
+        <span colspan="5">no records found</span>
+    {% endfor %}
+
+{% endblock %}

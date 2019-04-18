@@ -7,6 +7,8 @@ App\Entity\User:
     password: '\$2y\$13\$9k7QDtyOle8XXLif/4GuseiRWllCVZFCdzdiOb0s42vgQcvf9l/L.'
     amount: '<numberBetween(1, 1000)>'
 
+
+
   user:
     __construct: false
     username: 'user'
@@ -14,6 +16,14 @@ App\Entity\User:
     mail: 'user@user.com'
     password: '\$2y\$13\$rTeDuTojdqSqCXXZNXyp9erOYHJjVnuaSQLAkUAIXGaLcmlN8JGaa'
     amount: '<numberBetween(1, 1000)>'
+
+
+App\Entity\Game:
+  game{1..4}:
+    __construct: false
+    started: "<dateTimeBetween('1 year ago', 'now')>"
+    amount: '<numberBetween(1, 1000)>'
+
 
 App\Entity\Article:
   article-{1..15}:

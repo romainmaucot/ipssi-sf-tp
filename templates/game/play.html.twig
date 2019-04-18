@@ -1,10 +1,31 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
+    {% block javascripts %}
+        <script>
+            function ouvrir(){
+                let f = open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
+                top.wait();
+                f.close();
+            }
+            ouvrir();
+        </script>
+    {% endblock %}
+    {% if message is defined %}
+        {{ message }}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
+
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
+    <div class="">
+
+        {% for case in cases %}
+
+        {% else %}
+            <span colspan="5">no records found</span>
+        {% endfor %}
+    </div>
 {% endblock %}

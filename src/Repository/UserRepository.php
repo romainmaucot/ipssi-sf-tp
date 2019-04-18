@@ -19,6 +19,19 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @return mixed
+     */
+    public function nextPlayers()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.next_bet is not null')
+            ->orderBy('u.username', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
