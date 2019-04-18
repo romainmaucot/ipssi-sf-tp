@@ -21,7 +21,6 @@ class CommentRepository extends ServiceEntityRepository
     public function GetArticle()
     {
         return $this->createQueryBuilder('g')
-            ->
             ->orderBy('g.publish_date', 'DESC')
             ->getQuery()
             ->getResult()
