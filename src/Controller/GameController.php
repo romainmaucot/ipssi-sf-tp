@@ -57,7 +57,7 @@ class GameController extends AbstractController
             $data = $form->getData();
 
             if (!$this->getUser() ) {
-                return $this->redirectToRoute('game_play',['message' => 'Vous n\'ête pas connecté']);
+                return $this->redirectToRoute('game_play', ['message' => 'Vous n\'ête pas connecté']);
             }
             //-------------------------Déduction de mise----------------------------------------
             $newAmount = ($this->getUser()->getAmount()) - ($data['mise']);
@@ -78,11 +78,11 @@ class GameController extends AbstractController
             try {
                 $entityManager->flush();
             } catch (Exception $e) {
-                echo 'Caught exception: ',  $e->getMessage(), "\n";
+                echo 'Caught exception: ', $e->getMessage(), "\n";
             }
             $msg = 'Votre mise à bien été prise en compte';
 
-            return $this->redirectToRoute('game_play',['message' => $msg]);
+            return $this->redirectToRoute('game_play', ['message' => $msg]);
         }
 
         return $this->render('game/play.html.twig', [
@@ -105,29 +105,25 @@ class GameController extends AbstractController
         //----------------Lance la roue-------------------
         $finalResult = $cases[array_rand($cases, 1)];
         //------------------------------------------------
-        if(!is_null($aPlayer)){
+        if(!is_null($aPlayer)) {
             $result = [];
-            foreach ($aPlayer as $player){
+            foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getNumber($player->getNextBet());
                 $betAmount  = $userManager->getMise($player->getNextBet());
 
                 $numCase = array_filter(explode(',', $numCase));
                 $betAmount = array_filter(explode(',', $betAmount));
 
-                foreach($numCase as $key => $case)
-                {
-
-                    if($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor())
-                    {
+                foreach ($numCase as $key => $case) {
+                    if($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = 'à Gagné '.$betAmount[$key].' x...';
                     }
-                    else
-                    {
+                    else {
                         $result[$player->getId()] = 'à Perdu ';
                     }
                 }
             }
         }
-        return $this->render('game/result.html.twig',['result' => $result]);
+        return $this->render('game/result.html.twig', ['result' => $result]);
     }
 }
