@@ -39,10 +39,20 @@ start: docker-compose.override.yml
 	$(FIG) pull || true
 	$(FIG) build
 	$(FIG) up -d
+	composer install
 	$(EXEC) $(CONSOLE) doctrine:database:create --if-not-exists
+	$(EXEC) $(CONSOLE) doctrine:schema:update --force
+	$(EXEC) $(CONSOLE) make:migration
 	$(EXEC) $(CONSOLE) hautelook:fixtures:load -q
 
-
+.PHONY: start-mounia
+start-mounia:
+	composer install
+	$(CONSOLE) doctrine:database:create --if-not-exists
+	$(CONSOLE) doctrine:schema:update --force
+	$(CONSOLE) make:migration
+	$(CONSOLE) hautelook:fixtures:load -q
+	$(CONSOLE) server:run
 
 .PHONY: stop ## stop the project
 stop:
