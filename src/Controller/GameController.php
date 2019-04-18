@@ -81,16 +81,21 @@ class GameController extends AbstractController
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Vous avez misé '.$data['mise'].' $ '.
-                'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain($userRepository).
-                '. Vous jouer pour un gain potentiel de '.'$foo';
+            $msg = 'Vous avez misé '.$data['mise'].'$ sur la case '.$data['case'].
+                ' pour la prochaine partie. Le montant de table s\'élevra à '.
+                ($userManager->tableGain($userRepository)+$data['mise']).
+                '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
-            return $this->redirectToRoute('game_play', ['message' => $msg]);
+            return $this->render('game/play.html.twig', [
+                'form'      => $form->createView(),
+                'cases'     => $cases ? : [],
+                'message'   => $msg ? : ''
+            ]);
         }
 
         return $this->render('game/play.html.twig', [
-            'form' => $form->createView(),
-            'cases' => $cases ? : []
+            'form'      => $form->createView(),
+            'cases'     => $cases ? : [],
         ]);
     }
 
@@ -119,11 +124,12 @@ class GameController extends AbstractController
 
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
-                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.$betAmount[$key].' x...';
+                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
                     } else {
-                        $result[$player->getId()] = $player->getUsername().' à Perdu ';
+                        $result[$player->getId()] = $player->getUsername().' à Perdu '.$betAmount[$key];
                     }
                 }
+                array_merge($result, ['tirage'=> 'Tirage : '.$finalResult->getNumber().' : '.$finalResult->getColor()]);
             }
         }
 

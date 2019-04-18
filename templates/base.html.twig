@@ -18,23 +18,51 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
+<<<<<<< HEAD
                         <a class="nav-link" href="#">Blog</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/register">Inscription</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Connexion</a>
                     </li>
                     <li class="nav-item">
+<<<<<<< HEAD
                         <a class="nav-link" href="/register">Inscription</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">Mon profil</a>
+=======
+                        <a class="nav-link" href="/account">Mon compte</a>
+>>>>>>> 9971d44e1a675819d57bba9463ce23b903edc95b
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('game_play') }}">Jouer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Déconnexion</a>
+=======
+                        <a class="nav-link" href="/index">Blog</a>
+>>>>>>> 147ab07bb97e08206249484aee9f2a28f5a91bc4
                     </li>
+                    {% if app.user %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/profile">Mon profil</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('game_play') }}">Jouer</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/logout">Déconnexion</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/login">Connexion</a>
+                        </li>
+                    {% endif %}
+
+
                 </ul>
             </div>
         </nav>
