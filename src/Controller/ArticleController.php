@@ -17,11 +17,20 @@ class ArticleController extends AbstractController
 {
     /**
      * @Route("/", name="article_index", methods={"GET"})
+     * @param Request $request
+     * @param ArticleRepository $articleRepository
+     * @return Response
      */
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(Request $request, ArticleRepository $articleRepository): Response
     {
+        $page               = $request->query->get('page') ? : 1 ;
+        $articles           = $articleRepository->orderArticle($page);
+        $totalPosts         = count($articleRepository->findAll());
+        $maxPages           = ceil($totalPosts / 5);
+
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->orderArticle(),
+            'articles'      => $articles,
+            'maxPages'      => $maxPages,
         ]);
     }
 
