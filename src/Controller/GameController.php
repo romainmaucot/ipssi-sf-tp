@@ -28,6 +28,7 @@ class GameController extends AbstractController
     {
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
+            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 
@@ -83,7 +84,6 @@ class GameController extends AbstractController
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
             $entityManager->persist($lastGame);
-            $entityManager->flush();
             try {
                 $entityManager->flush();
             } catch (Exception $e) {
@@ -91,7 +91,7 @@ class GameController extends AbstractController
             }
             $msg = 'Vous avez misé '.$data['mise'].'$ sur la case '.$data['case'].
                 ' pour la prochaine partie. Le montant de table s\'élevra à '.
-                ($userManager->tableGain($userRepository)).
+                ($userManager->tableGain($userRepository) + $data['mise']).
                 '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
             return $this->render('game/play.html.twig', [
@@ -114,6 +114,7 @@ class GameController extends AbstractController
      * @param UserRepository $userRepository
      * @param GameRepository $gameRepository
      * @return Response
+     * @throws \Exception
      */
     public function run(UserRepository $userRepository, GameRepository $gameRepository) : Response
     {
@@ -133,15 +134,12 @@ class GameController extends AbstractController
         $result = [];
         if (!is_null($aPlayer)) {
             foreach ($aPlayer as $player) {
-                $numCase    = $userManager->getNumber($player->getNextBet());
-                $betAmount  = $userManager->getMise($player->getNextBet());
+                $numCase    = $userManager->getMise($player->getNextBet());
+                $betAmount  = $userManager->getNumber($player->getNextBet());
 
                 $numCase    = array_filter(explode(',', $numCase));
                 $betAmount  = array_filter(explode(',', $betAmount));
-                //dump($numCase);
                 foreach ($numCase as $key => $case) {
-                    //dump($case);
-                    //dump($cases[$case]);exit;
                     if ($case == $finalResult->getNumber()) {
                         /*
                         if ($cases[$case]->getColor() == $finalResult->getColor()){
@@ -152,31 +150,33 @@ class GameController extends AbstractController
                             ((int)$betAmount[$key] * 35).'$';
                             $gameManager->payed($player, (int)$betAmount[$key] * 35);
                     } else {
-                        $result[] = ucfirst($player->getUsername()) . ' a joué '.(int)$betAmount[$key].
-                            '$ sur le '.$case.' et  à Perdu ';
+                        $result[] = ucfirst($player->getUsername()) .
+                            ' a joué sur le '.$case.' et  à Perdu ';
                     }
                 }
-            }//exit;
+                $player->setNextBet('');
+            }
             $result         = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber().
                 "(".$finalResult->getColor().")"], $result);
 
             //----------------------------Cree un article------------------------------------
-            $lastGame       = $gameRepository->findLast();
-            $article        = new Article();
             $content        = '';
             foreach ($result as $row) {
                 $content .= $row.' | ';
             }
-            $entityManager  = $this->getDoctrine()->getManager();
+            $lastGame       = $gameRepository->findLast();
+            $article        = new Article();
             $article->setContent($content);
             $article->setTitle('Résultat du jeux n° '.$lastGame->getId());
             $article->setPublishDate(new \DateTime('now'));
+            $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
-            $entityManager->flush();
             //-------------------------------Cree un nouveau jeu---------------------------------
-            $newGame = new Game();
+            $newGame        = new Game();
             $newGame->setAmount($lastGame->getAmount());
             $newGame->setStarted($date = new \DateTime('now +2 hour'));
+            $entityManager->persist($newGame);
+            $entityManager->flush();
             //----------------------------------------------------------------
         }
 

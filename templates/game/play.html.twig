@@ -7,6 +7,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script>
                 $(function () {
+                    /*
+                    var p = [10,20,50,70];
+                   $.each(p,function () {
+                       setTimeout(function(){
+                           $('.alert-dismissible').html("<div class='progress'>" +
+                               "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='"+p+"' aria-valuemin='0' aria-valuemax='"+p+"' style='width: "+p+"%'>" +
+                               "</div>"+
+                               "</div>");
+                       },3000);
+                   });
+                   */
                     $.get('http://127.0.0.1:8082/game/run', function (body) {
                         $('.alert-dismissible').html(body);
                     });
