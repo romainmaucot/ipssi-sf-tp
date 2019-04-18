@@ -18,7 +18,7 @@ class PlayType extends AbstractType
         $cases = $game->getCases();
         $aCases = [];
 
-        foreach ($cases as $row){
+        foreach ($cases as $row) {
             $aCases[$row->getNumber()] = $row->getNumber();
         }
 
@@ -26,9 +26,9 @@ class PlayType extends AbstractType
         $builder
             ->add('round')
 
-            ->add('mise',IntegerType::class)
+            ->add('mise', IntegerType::class)
 
-            ->add('case',ChoiceType::class, [
+            ->add('case', ChoiceType::class, [
                 'choices' => $aCases,
             ])
         ;
