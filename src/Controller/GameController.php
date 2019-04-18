@@ -80,7 +80,7 @@ class GameController extends AbstractController
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Votre mise à bien été prise en compte';
+            $msg = 'Vous avez misé '.$data['mise'].' $ '.'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().'. Vous jouer pour un gain potentiel de '.'$foo';
 
             return $this->redirectToRoute('game_play', ['message' => $msg]);
         }
@@ -124,5 +124,27 @@ class GameController extends AbstractController
             }
         }
         return $this->render('game/result.html.twig', ['result' => $result]);
+    }
+
+    /**
+     * @Route("/game/mail", name="game_mail")
+     * @param \Swift_Mailer $mailer
+     * @return Response
+     */
+    public function sendMAil( \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('loryleticee@gmail.com')
+            ->setTo('loryleticee@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'game/play.html.twig',
+                    ['name' => 'rvtveveveve']
+                )
+            )
+        ;
+        $mailer->send($message);
+
+        return $this->render('game/play.html.twig');
     }
 }
