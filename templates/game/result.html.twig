@@ -2,8 +2,9 @@
 
 {% block body %}
 
-
+    {{ result.tirage }}
     {% for row in result %}
+
         {{ row }}
     {% else %}
         <span colspan="5">no records found</span>

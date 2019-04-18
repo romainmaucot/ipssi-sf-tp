@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% block javascripts %}
-        <script>
-            function ouvrir(){
-                let f = open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
-                top.wait();
-                f.close();
-            }
-            //ouvrir();
-        </script>
-    {% endblock %}
+
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
+            <script>
+                function ouvrir(){
+                    let f = open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
+                    top.wait();
+                    f.close();
+                }
+                ouvrir();
+            </script>
     {% endif %}
     <div class="jumbotron">
         <div class="form-group">
