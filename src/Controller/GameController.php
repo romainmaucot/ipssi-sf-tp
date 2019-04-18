@@ -121,12 +121,12 @@ class GameController extends AbstractController
 
                 $numCase = array_filter(explode(',', $numCase));
                 $betAmount = array_filter(explode(',', $betAmount));
-
+                dump($betAmount[0]);exit;
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
                     } else {
-                        $result[$player->getId()] = $player->getUsername().' à Perdu ';
+                        $result[$player->getId()] = $player->getUsername().' à Perdu '.$betAmount[$key];
                     }
                 }
                 array_merge($result, ['tirage'=> 'Tirage : '.$finalResult->getNumber().' : '.$finalResult->getColor()]);
