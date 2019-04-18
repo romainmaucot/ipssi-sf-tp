@@ -100,8 +100,7 @@ class Game
 
         $cases = [new CaseRoulette(0, 'Vert')];
         $isOdd = true;
-        foreach ($casesNumber as $num)
-        {
+        foreach ($casesNumber as $num) {
             $cases[] = new CaseRoulette($num, $isOdd ? 'Rouge' : 'Noir');
             $isOdd = !$isOdd;
         }

@@ -41,7 +41,7 @@ class GameController extends AbstractController
         $game = new Game();
         $cases = $game->getCases();
         $aCases = [];
-        foreach ($cases as $row){
+        foreach ($cases as $row) {
             $aCases[ $row->getNumber() ] = $row->getColor();
         }
         $form = $this->createForm(PlayType::class, [
@@ -53,10 +53,10 @@ class GameController extends AbstractController
 
         $form->handleRequest($request);
 
-        if( $form->isSubmitted() && $form->isValid() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            if (!$this->getUser() ) {
+            if (!$this->getUser()) {
                 return $this->redirectToRoute('game_play', ['message' => 'Vous n\'ête pas connecté']);
             }
             //-------------------------Déduction de mise----------------------------------------
@@ -70,7 +70,7 @@ class GameController extends AbstractController
 
             //--------------------------Game---------------------------------------
             $game->addUser($this->getUser());
-            $game->setStarted( new \DateTime('now'));
+            $game->setStarted(new \DateTime('now'));
             //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
@@ -105,7 +105,7 @@ class GameController extends AbstractController
         //----------------Lance la roue-------------------
         $finalResult = $cases[array_rand($cases, 1)];
         //------------------------------------------------
-        if(!is_null($aPlayer)) {
+        if (!is_null($aPlayer)) {
             $result = [];
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getNumber($player->getNextBet());
@@ -115,10 +115,9 @@ class GameController extends AbstractController
                 $betAmount = array_filter(explode(',', $betAmount));
 
                 foreach ($numCase as $key => $case) {
-                    if($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
+                    if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = 'à Gagné '.$betAmount[$key].' x...';
-                    }
-                    else {
+                    } else {
                         $result[$player->getId()] = 'à Perdu ';
                     }
                 }

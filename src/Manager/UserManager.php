@@ -21,8 +21,9 @@ class UserManager
     public function getNumber(string $bet) : string
     {
         $data = strstr($bet, '-', false);
-        $data = substr($data, 1,strlen($data));
+        $data = substr($data, 1, strlen($data));
 
         return $data ? $data.',' : '';
     }
+
 }
