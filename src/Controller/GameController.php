@@ -34,7 +34,7 @@ class GameController extends AbstractController
     public function play(GameRepository $gameRepository, Request $request) : Response
     {
         $lastId = $gameRepository->findLast();
-        if( !$lastId ){
+        if (!$lastId) {
             throw new Exception('Il n\'y a pas de jeux');
         }
 
@@ -56,7 +56,7 @@ class GameController extends AbstractController
         if( $form->isSubmitted() && $form->isValid() ) {
             $data = $form->getData();
 
-            if(!$this->getUser()) {
+            if (!$this->getUser() ) {
                 return $this->redirectToRoute('game_play',['message' => 'Vous n\'ête pas connecté']);
             }
             //-------------------------Déduction de mise----------------------------------------
