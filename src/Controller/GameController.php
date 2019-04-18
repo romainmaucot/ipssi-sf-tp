@@ -29,6 +29,7 @@ class GameController extends AbstractController
     /**
      * @Route("/game/play", name="game_play")
      * @param GameRepository $gameRepository
+     * @param UserRepository $userRepository
      * @param Request $request
      * @return Response
      */

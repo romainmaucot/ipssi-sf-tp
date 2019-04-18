@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -30,8 +29,8 @@ class ArticleRepository extends ServiceEntityRepository
          return $this->createQueryBuilder('a')
             ->orderBy('a.publish_date', 'DESC')
             ->getQuery()
-            ->setMaxResults(5)
-            ->setFirstResult(($currentPage-1) * 5)
+            ->setMaxResults(10)
+            ->setFirstResult(($currentPage-1) * 10)
             ->getResult()
             ;
     }

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +25,7 @@ class ArticleController extends AbstractController
         $page               = $request->query->get('page') ? : 1 ;
         $articles           = $articleRepository->orderArticle($page);
         $totalPosts         = count($articleRepository->findAll());
-        $maxPages           = ceil($totalPosts / 5);
+        $maxPages           = ceil($totalPosts / 10);
 
         return $this->render('article/index.html.twig', [
             'articles'      => $articles,
@@ -36,6 +35,8 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
+     * @param Article $article
+     * @return Response
      */
     public function show(Article $article): Response
     {
