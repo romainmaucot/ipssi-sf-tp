@@ -4,7 +4,7 @@ App\Entity\User:
     username: 'admin'
     roles: '[ROLE_ADMIN]'
     mail: 'admin@admin.com'
-    password: '\$argon2i\$v=19\$m=1024,t=2,p=2\$TXBKdms1alJLNU9YVkRFMQ\$S3WMOhS2xVxfgZkO/OjpLJdnw5NYicgdRa9OePuA96I'
+    password: '\$2y\$13\$4FDQGQcyCPMe9.imSIFAyOVF2mk2Qm65Nis7KShL50EX2q37DBy/G'
     amount: '<numberBetween(1, 30)>'
 
   user:
@@ -12,7 +12,7 @@ App\Entity\User:
     username: 'user'
     roles: '[ROLE_USER]'
     mail: 'user@user.com'
-    password: '\$argon2i\$v=19\$m=1024,t=2,p=2\$N0h1L3R5eU1ORmpCc2t3ZA\$jy66fKObjkfGqJRShx/pScrxuEcLFwd6mo7GzIHFC6c'
+    password: '\$2y\$13\$tqyyw2nNyIYvkE5y4f4g.ehFFZWKvSHSZ44kX3O4vXtk8b2TB5Klu'
     amount: '<numberBetween(1, 1000)>'
 
 
