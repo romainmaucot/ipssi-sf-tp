@@ -1,9 +1,5 @@
-{% block body %}
-    <div id="res">
-        {% for row in result %}
-            {{ row }}<br>
-        {% else %}
-            <span colspan="5">no records found</span>
-        {% endfor %}
-    </div>
-{% endblock %}
+{% for row in result %}
+    {{ row }}<br>
+{% else %}
+    <span colspan="5">no records found</span>
+{% endfor %}
