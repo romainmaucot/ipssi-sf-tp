@@ -49,8 +49,9 @@ class UserManager
         foreach ($aPlayer as $player) {
             $miseStr = $this->getMise($player->getNextBet());
             $miseStr = array_filter(explode(',', $miseStr));
+
             foreach ($miseStr as $row) {
-                $total  += $row;
+                $total  += (int)$row;
             }
         }
 
