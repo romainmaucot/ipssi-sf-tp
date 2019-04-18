@@ -81,7 +81,8 @@ class GameController extends AbstractController
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Vous avez misé '.$data['mise'].' $ '.'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().
+            $msg = 'Vous avez misé '.$data['mise'].' $ '.
+                'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().
                 '. Vous jouer pour un gain potentiel de '.'$foo';
 
             return $this->redirectToRoute('game_play', ['message' => $msg]);
