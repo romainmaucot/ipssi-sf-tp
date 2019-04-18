@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: loryleticee
- * Date: 2019-04-18
- * Time: 00:05
- */
 
 namespace App\Manager;
 
@@ -34,5 +28,8 @@ class UserManager
 
         return $data ? $data.',' : '';
     }
+
+
+
 
 }
