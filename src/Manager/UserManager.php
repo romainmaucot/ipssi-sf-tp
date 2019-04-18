@@ -28,8 +28,4 @@ class UserManager
 
         return $data ? $data.',' : '';
     }
-
-
-
-
 }
