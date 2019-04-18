@@ -159,11 +159,13 @@ class GameController extends AbstractController
             }//exit;
             $result         = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber().
                 "(".$finalResult->getColor().")"], $result);
+
+            //----------------------------Cree un article------------------------------------
             $lastGame       = $gameRepository->findLast();
             $article        = new Article();
             $content        = '';
             foreach ($result as $row) {
-                $content .= $row.'<br>';
+                $content .= $row.' | ';
             }
             $entityManager  = $this->getDoctrine()->getManager();
             $article->setContent($content);
@@ -171,6 +173,11 @@ class GameController extends AbstractController
             $article->setPublishDate(new \DateTime('now'));
             $entityManager->persist($article);
             $entityManager->flush();
+            //-------------------------------Cree un nouveau jeu---------------------------------
+            $newGame = new Game();
+            $newGame->setAmount($lastGame->getAmount());
+            $newGame->setStarted($date = new \DateTime('now +2 hour'));
+            //----------------------------------------------------------------
         }
 
         return $this->render('game/result.html.twig', ['result' => $result]);
