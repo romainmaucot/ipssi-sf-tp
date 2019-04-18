@@ -12,6 +12,7 @@ use App\Entity\Game;
 use App\Form\PlayType;
 use App\Repository\GameRepository;
 use App\Manager\UserManager;
+use App\Manager\GameManager;
 
 class GameController extends AbstractController
 {
@@ -38,7 +39,6 @@ class GameController extends AbstractController
             throw new Exception('Il n\'y a pas de jeux');
         }
 
-
         $cases = $lastGame->getCases();
         $aCases = [];
         foreach ($cases as $row) {
@@ -59,9 +59,10 @@ class GameController extends AbstractController
             if (!$this->getUser()) {
                 return $this->redirectToRoute('game_play', ['message' => 'Vous n\'ête pas connecté']);
             }
-            //-------------------------Déduction de mise----------------------------------------
+            //-------------------------Déduction de mise + induction dans bank----------------------------------------
             $newAmount = ($this->getUser()->getAmount()) - ($data['mise']);
             $this->getUser()->setAmount($newAmount);
+            $lastGame->setAmount($lastGame->getAmount() + $data['mise']);
             //--------------------------Prépare la mise pour la prochaine partie-----------------------------------
             $userManager = new UserManager();
             $numero = $userManager->getNumber($this->getUser()->getNextBet()).$data['case'];
@@ -101,36 +102,43 @@ class GameController extends AbstractController
 
     /**
      * @Route("/game/run", name="game_run")
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function run(UserRepository $userRepository) : Response
     {
-        $game = new Game();
-        $cases = $game->getCases();
+        $game               = new Game();
+        $userManager        = new UserManager();
+        $gameManager        = new GameManager();
 
+        $cases              = $game->getCases();
+        $aPlayer            = $userRepository->nextPlayers();
 
-        $userManager = new UserManager();
-        $aPlayer =  $userRepository->nextPlayers();
         //----------------Lance la roue-------------------
-        $finalResult = $cases[array_rand($cases, 1)];
+        /** @var int $rand */
+        $rand = array_rand($cases, 1);
+        $finalResult = $cases[$rand];
         //------------------------------------------------
+
+        $result = [];
         if (!is_null($aPlayer)) {
-            $result = [];
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getNumber($player->getNextBet());
                 $betAmount  = $userManager->getMise($player->getNextBet());
 
-                $numCase = array_filter(explode(',', $numCase));
-                $betAmount = array_filter(explode(',', $betAmount));
-                dump($betAmount[0]);exit;
+                $numCase    = array_filter(explode(',', $numCase));
+                $betAmount  = array_filter(explode(',', $betAmount));
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
-                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
+                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.((int)$betAmount[$key] * 35);
+                        $gameManager->payed($player, (int)$betAmount[$key] * 35);
                     } else {
-                        $result[$player->getId()] = $player->getUsername().' à Perdu '.$betAmount[$key];
+                        $result[$player->getId()] = $player->getUsername() . ' à Perdu ';
                     }
                 }
             }
-            $result = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber()."(".$finalResult->getColor().")"], $result);
+            $result = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber().
+                "(".$finalResult->getColor().")"], $result);
         }
 
         return $this->render('game/result.html.twig', ['result' => $result]);

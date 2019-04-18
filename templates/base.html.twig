@@ -43,8 +43,6 @@
                             <a class="nav-link" href="/admin">Admin</a>
                         </li>
                     {% endif %}
-
-
                 </ul>
             </div>
         </nav>
@@ -52,6 +50,7 @@
     </header>
     <body>
         {% block body %}{% endblock %}
+        {% block footer %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
