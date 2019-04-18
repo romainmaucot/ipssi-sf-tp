@@ -113,10 +113,10 @@ class GameController extends AbstractController
         $gameManager = new GameManager();
         $aPlayer =  $userRepository->nextPlayers();
         //----------------Lance la roue-------------------
-        $finalResult = $cases[array_rand($cases, 1)];
+        $finalResult = $cases[array_rand($cases?:[], 1)];
         //------------------------------------------------
+        $result = [];
         if (!is_null($aPlayer)) {
-            $result = [];
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getNumber($player->getNextBet());
                 $betAmount  = $userManager->getMise($player->getNextBet());
@@ -126,13 +126,14 @@ class GameController extends AbstractController
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
-                        $gameManager->payed($player,$betAmount[$key] * 35);
+                        $gameManager->payed($player, $betAmount[$key] * 35);
                     } else {
                         $result[$player->getId()] = $player->getUsername() . ' à Perdu ';
                     }
                 }
             }
-            $result = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber()."(".$finalResult->getColor().")"], $result);
+            $result = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber().
+                "(".$finalResult->getColor().")"], $result);
         }
 
         return $this->render('game/result.html.twig', ['result' => $result]);
