@@ -4,18 +4,14 @@
 
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
-        {% block javascripts %}
             <script>
                 function ouvrir(){
                     let f = open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
                     top.wait();
                     f.close();
                 }
-                if ($message) {
-                    ouvrir();
-                }
+                ouvrir();
             </script>
-        {% endblock %}
     {% endif %}
     <div class="jumbotron">
         <div class="form-group">
