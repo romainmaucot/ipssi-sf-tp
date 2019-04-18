@@ -4,11 +4,11 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
-/src/Migrations/
 .idea/
 vendor/
-var/
+var/*
 .env
+
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

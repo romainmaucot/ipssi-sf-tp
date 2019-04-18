@@ -6,7 +6,6 @@
         <div class="alert alert-info">{{ message }}</div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script>
-
                 $(function () {
                     $.get('http://127.0.0.1:8082/game/run#res', function (body) {
                         $('.alert').html(body);
