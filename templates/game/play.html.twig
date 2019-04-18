@@ -12,14 +12,13 @@
         </script>
     {% endblock %}
     {% if message is defined %}
-        {{ message }}
         <div class="alert alert-info">{{ message }}</div>
     {% endif %}
     <div class="jumbotron">
         <div class="form-group">
             {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button type="button" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
             {{ form_end(form) }}
         </div>
         <div class="">

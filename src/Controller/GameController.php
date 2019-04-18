@@ -81,16 +81,21 @@ class GameController extends AbstractController
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Vous avez misé '.$data['mise'].' $ '.
-                'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain($userRepository).
-                '. Vous jouer pour un gain potentiel de '.'$foo';
+            $msg = 'Vous avez misé '.$data['mise'].'$ sur la case '.$data['case'].
+                ' pour la prochaine partie. Le montant de table s\'élevra à '.
+                ($userManager->tableGain($userRepository)+$data['mise']).
+                '$. Vous jouer pour un gain potentiel de '.'$foo';
 
-            return $this->redirectToRoute('game_play', ['message' => $msg]);
+            return $this->render('game/play.html.twig', [
+                'form'      => $form->createView(),
+                'cases'     => $cases ? : [],
+                'message'   => $msg ? : ''
+            ]);
         }
 
         return $this->render('game/play.html.twig', [
-            'form' => $form->createView(),
-            'cases' => $cases ? : []
+            'form'      => $form->createView(),
+            'cases'     => $cases ? : [],
         ]);
     }
 
