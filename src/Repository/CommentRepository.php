@@ -18,7 +18,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
-    public function GetArticle()
+    public function getArticle()
     {
         return $this->createQueryBuilder('g')
             ->orderBy('g.publish_date', 'DESC')
