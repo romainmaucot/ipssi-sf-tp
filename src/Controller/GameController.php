@@ -151,9 +151,10 @@ class GameController extends AbstractController
                 $this->renderView(
                     'mail/game.html.twig',
                     ['name' => 'rvtveveveve']
-                )
-            ,'text/plain')
-            ->addPart('','text/html')
+                ),
+                'text/plain'
+            )
+            //->addPart('', 'text/html')
         ;
         $mailer->send($message);
 
