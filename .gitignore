@@ -7,8 +7,9 @@
 /src/Migrations/*
 .idea/
 vendor/
-var/
+var/*
 .env
+
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###
