@@ -30,6 +30,7 @@ class ArticleController extends AbstractController
         return $this->render('article/index.html.twig', [
             'articles'      => $articles,
             'maxPages'      => $maxPages,
+            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 
@@ -42,6 +43,7 @@ class ArticleController extends AbstractController
     {
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 }

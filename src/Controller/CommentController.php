@@ -23,7 +23,8 @@ class CommentController extends AbstractController
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [
-            'comment' => $comment,
+            'comment'  => $comment,
+            'amount'   => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 }

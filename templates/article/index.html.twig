@@ -4,7 +4,9 @@
 
 {% block body %}
     <h1>Tous les Articles</h1>
-
+    {% if message is defined %}nklmklnklm
+        <span class="alert-danger"> {% dump(message)%} </span>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
