@@ -25,7 +25,7 @@ class UserManager
     public function getNumber(?string $bet = null) : string
     {
         $data = strstr($bet, '-', false);
-        $data = substr($data, 1, strlen($data));
+        $data = $data ? substr($data, 1, strlen($data)) : '';
 
         return $data ? $data.',' : '';
     }
@@ -38,7 +38,7 @@ class UserManager
            $total[] +=;
        }*/
     }
-    public function tableGain(UserRepository $userRepository) : float
+    public function tableGain(UserRepository $userRepository) : int
     {
         $aPlayer =  $userRepository->nextPlayers();
         $total   = 0 ;

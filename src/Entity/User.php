@@ -57,6 +57,11 @@ class User implements UserInterface
      */
     private $next_bet;
 
+    /**
+     * @var string
+     */
+    private $plainPassword;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -111,6 +116,10 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -118,12 +127,18 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlainPassword()
+    /**
+     * @return String
+     */
+    public function getPlainPassword(): string
     {
-        return $this->plainPassword;
+        return (string) $this->plainPassword;
     }
 
-    public function setPlainPassword($password)
+    /**
+     * @param string $password
+     */
+    public function setPlainPassword(string $password): void
     {
         $this->plainPassword = $password;
     }
@@ -197,7 +212,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
     public function getNextBet(): ?string
     {
@@ -205,7 +220,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param float|null $next_bet
+     * @param string|null $next_bet
      * @return User
      */
     public function setNextBet(?string $next_bet): self

@@ -7,10 +7,14 @@ use App\Entity\Game;
 
 class GameManager extends Game
 {
-    public function payed(User $user, float $gain = 0) :void
+
+    /**
+     * @param User $user
+     * @param int|null $gain
+     */
+    public function payed(User $user, int $gain = null) :void
     {
-        $initAmount  =  $user->getAmount();
-        $newAmount   = $user->setAmount(($gain + $initAmount));
-        $this->setAmount($this->getAmount() - $newAmount);
+        $initAmount  =  (int)$user->getAmount();
+        $user->setAmount(($gain + $initAmount));
     }
 }

@@ -102,31 +102,36 @@ class GameController extends AbstractController
 
     /**
      * @Route("/game/run", name="game_run")
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function run(UserRepository $userRepository) : Response
     {
-        $game = new Game();
-        $cases = $game->getCases();
+        $game               = new Game();
+        $userManager        = new UserManager();
+        $gameManager        = new GameManager();
 
+        $cases              = $game->getCases();
+        $aPlayer            = $userRepository->nextPlayers();
 
-        $userManager = new UserManager();
-        $gameManager = new GameManager();
-        $aPlayer =  $userRepository->nextPlayers();
         //----------------Lance la roue-------------------
-        $finalResult = $cases[array_rand($cases?:[], 1)];
+        /** @var int $rand */
+        $rand = array_rand($cases, 1);
+        $finalResult = $cases[$rand];
         //------------------------------------------------
+
         $result = [];
         if (!is_null($aPlayer)) {
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getNumber($player->getNextBet());
                 $betAmount  = $userManager->getMise($player->getNextBet());
 
-                $numCase = array_filter(explode(',', $numCase));
-                $betAmount = array_filter(explode(',', $betAmount));
+                $numCase    = array_filter(explode(',', $numCase));
+                $betAmount  = array_filter(explode(',', $betAmount));
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
-                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
-                        $gameManager->payed($player, $betAmount[$key] * 35);
+                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.((int)$betAmount[$key] * 35);
+                        $gameManager->payed($player, (int)$betAmount[$key] * 35);
                     } else {
                         $result[$player->getId()] = $player->getUsername() . ' à Perdu ';
                     }
