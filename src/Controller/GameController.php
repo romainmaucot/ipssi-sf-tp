@@ -75,6 +75,7 @@ class GameController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
             $entityManager->persist($game);
+            $entityManager->flush();
             try {
                 $entityManager->flush();
             } catch (Exception $e) {
@@ -132,7 +133,7 @@ class GameController extends AbstractController
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function sendMAil( \Swift_Mailer $mailer)
+    public function sendMAil(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('loryleticee@gmail.com')

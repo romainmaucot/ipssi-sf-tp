@@ -11,7 +11,7 @@ class UserManager
      * @param string $bet
      * @return string
      */
-    public function getMise(string $bet) : string
+    public function getMise(?string $bet = null) : string
     {
         $data = strstr($bet, '-', true);
 
@@ -22,7 +22,7 @@ class UserManager
      * @param string $bet
      * @return string
      */
-    public function getNumber(string $bet) : string
+    public function getNumber(?string $bet = null) : string
     {
         $data = strstr($bet, '-', false);
         $data = substr($data, 1, strlen($data));
@@ -30,27 +30,26 @@ class UserManager
         return $data ? $data.',' : '';
     }
 
-   public function potentialGain(UserRepository $userRepository)
-   {
+    public function potentialGain(UserRepository $userRepository)
+    {
        /*
        $aPlayer =  $userRepository->nextPlayers();
        foreach ($aPlayer as $player) {
            $total[] +=;
        }*/
-   }
+    }
+    public function tableGain(UserRepository $userRepository) : float
+    {
+        $aPlayer =  $userRepository->nextPlayers();
+        $total   = 0 ;
 
-   public function tableGain(UserRepository $userRepository) : float
-   {
-       $aPlayer =  $userRepository->nextPlayers();
-       $total   = 0 ;
+        if (is_null($aPlayer)) {
+            return $total;
+        }
+        foreach ($aPlayer as $player) {
+            $total  += $player->getNexBet();
+        }
 
-       if (is_null($aPlayer)) {
-           return $total;
-       }
-       foreach ($aPlayer as $player) {
-           $total  += $player->getNexBet();
-       }
-
-       return $total;
-   }
+        return $total;
+    }
 }
