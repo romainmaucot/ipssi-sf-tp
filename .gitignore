@@ -8,7 +8,6 @@
 vendor/
 var/*
 .env
-
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

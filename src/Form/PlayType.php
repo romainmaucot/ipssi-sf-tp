@@ -24,10 +24,7 @@ class PlayType extends AbstractType
 
         sort($aCases);
         $builder
-            ->add('round')
-
             ->add('mise', IntegerType::class)
-
             ->add('case', ChoiceType::class, [
                 'choices' => $aCases,
             ])

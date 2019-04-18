@@ -12,6 +12,7 @@ use App\Entity\Game;
 use App\Form\PlayType;
 use App\Repository\GameRepository;
 use App\Manager\UserManager;
+use App\Manager\GameManager;
 
 class GameController extends AbstractController
 {
@@ -38,7 +39,6 @@ class GameController extends AbstractController
             throw new Exception('Il n\'y a pas de jeux');
         }
 
-
         $cases = $lastGame->getCases();
         $aCases = [];
         foreach ($cases as $row) {
@@ -59,9 +59,10 @@ class GameController extends AbstractController
             if (!$this->getUser()) {
                 return $this->redirectToRoute('game_play', ['message' => 'Vous n\'ête pas connecté']);
             }
-            //-------------------------Déduction de mise----------------------------------------
+            //-------------------------Déduction de mise + induction dans bank----------------------------------------
             $newAmount = ($this->getUser()->getAmount()) - ($data['mise']);
             $this->getUser()->setAmount($newAmount);
+            $lastGame->setAmount($lastGame->getAmount() + $data['mise']);
             //--------------------------Prépare la mise pour la prochaine partie-----------------------------------
             $userManager = new UserManager();
             $numero = $userManager->getNumber($this->getUser()->getNextBet()).$data['case'];
@@ -109,6 +110,7 @@ class GameController extends AbstractController
 
 
         $userManager = new UserManager();
+        $gameManager = new GameManager();
         $aPlayer =  $userRepository->nextPlayers();
         //----------------Lance la roue-------------------
         $finalResult = $cases[array_rand($cases, 1)];
@@ -124,8 +126,9 @@ class GameController extends AbstractController
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
+                        $gameManager->payed($player,$betAmount[$key] * 35);
                     } else {
-                        $result[$player->getId()] = $player->getUsername().' à Perdu ';
+                        $result[$player->getId()] = $player->getUsername() . ' à Perdu ';
                     }
                 }
             }
