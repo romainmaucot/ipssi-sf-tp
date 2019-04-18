@@ -119,9 +119,9 @@ class GameController extends AbstractController
 
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
-                        $result[$player->getId()] = 'à Gagné '.$betAmount[$key].' x...';
+                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.$betAmount[$key].' x...';
                     } else {
-                        $result[$player->getId()] = 'à Perdu ';
+                        $result[$player->getId()] = $player->getUsername().' à Perdu ';
                     }
                 }
             }
@@ -139,13 +139,15 @@ class GameController extends AbstractController
     {
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('loryleticee@gmail.com')
+            ->setSubject('Votre dernier pari')
             ->setTo('loryleticee@gmail.com')
             ->setBody(
                 $this->renderView(
-                    'game/play.html.twig',
+                    'mail/game.html.twig',
                     ['name' => 'rvtveveveve']
                 )
-            )
+            ,'text/plain')
+            ->addPart('','text/html')
         ;
         $mailer->send($message);
 
