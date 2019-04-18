@@ -29,14 +29,6 @@ help:
 		| sed 's/\(##\)/\t/' \
 		| expand -t14
 
-.PHONY: start-mounia
-start-mounia:
-  $(CONSOLE) doctrine:database:create --if-not-exists
-  $(CONSOLE) doctrine:schema:update --force
-  $(CONSOLE) make:migration
-  $(CONSOLE) hautelook:fixtures:load -q
-  $(CONSOLE) server:run
-
 ##
 ## Project setup & day to day shortcuts
 ##---------------------------------------------------------------------------
