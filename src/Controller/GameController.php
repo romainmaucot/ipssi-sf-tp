@@ -75,12 +75,14 @@ class GameController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
             $entityManager->persist($game);
+            $entityManager->flush();
             try {
                 $entityManager->flush();
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Vous avez misé '.$data['mise'].' $ '.'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().'. Vous jouer pour un gain potentiel de '.'$foo';
+            $msg = 'Vous avez misé '.$data['mise'].' $ '.'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().
+                '. Vous jouer pour un gain potentiel de '.'$foo';
 
             return $this->redirectToRoute('game_play', ['message' => $msg]);
         }
@@ -132,7 +134,7 @@ class GameController extends AbstractController
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function sendMAil( \Swift_Mailer $mailer)
+    public function sendMAil(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('loryleticee@gmail.com')
