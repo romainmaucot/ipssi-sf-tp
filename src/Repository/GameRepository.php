@@ -24,7 +24,7 @@ class GameRepository extends ServiceEntityRepository
             ->orderBy('g.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
             ;
     }
 

@@ -31,21 +31,21 @@ class GameController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function play(GameRepository $gameRepository, Request $request) : Response
+    public function play(GameRepository $gameRepository, UserRepository $userRepository, Request $request) : Response
     {
-        $lastId = $gameRepository->findLast();
-        if (!$lastId) {
+        $lastGame = $gameRepository->findLast();
+        if (!$lastGame) {
             throw new Exception('Il n\'y a pas de jeux');
         }
 
-        $game = new Game();
-        $cases = $game->getCases();
+
+        $cases = $lastGame->getCases();
         $aCases = [];
         foreach ($cases as $row) {
             $aCases[ $row->getNumber() ] = $row->getColor();
         }
         $form = $this->createForm(PlayType::class, [
-            'round'=> $lastId[0]->getId(),
+            'round'=> $lastGame->getId(),
             /** la mise par défault est égale à 10% du montant total du compte en banque de l'utilisateur */
             'mise'=>  ($this->getUser() ? $this->getUser()->getAmount() : 0 ) * (0.10),
             'numero'=> $aCases,
@@ -69,12 +69,12 @@ class GameController extends AbstractController
             $this->getUser()->setNextBet($numero.'-'.$mise);
 
             //--------------------------Game---------------------------------------
-            $game->addUser($this->getUser());
-            $game->setStarted(new \DateTime('now'));
+
+            $lastGame->addUser($this->getUser());
             //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
-            $entityManager->persist($game);
+            $entityManager->persist($lastGame);
             $entityManager->flush();
             try {
                 $entityManager->flush();
@@ -82,7 +82,7 @@ class GameController extends AbstractController
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
             $msg = 'Vous avez misé '.$data['mise'].' $ '.
-                'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().
+                'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain($userRepository).
                 '. Vous jouer pour un gain potentiel de '.'$foo';
 
             return $this->redirectToRoute('game_play', ['message' => $msg]);
