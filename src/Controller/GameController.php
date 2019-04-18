@@ -129,8 +129,8 @@ class GameController extends AbstractController
                         $result[$player->getId()] = $player->getUsername().' à Perdu ';
                     }
                 }
-                array_merge($result, ['tirage'=> 'Tirage : '.$finalResult->getNumber().' : '.$finalResult->getColor()]);
             }
+            $result = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber()."(".$finalResult->getColor().")"], $result);
         }
 
         return $this->render('game/result.html.twig', ['result' => $result]);

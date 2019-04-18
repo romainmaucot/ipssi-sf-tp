@@ -4,13 +4,14 @@
 
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script>
-                function ouvrir(){
-                    let f = window.open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
-                    top.wait();
-                    f.close();
-                }
-                ouvrir();
+
+                $(function () {
+                    $.get('http://127.0.0.1:8082/game/run#res', function (body) {
+                        $('.alert').html(body);
+                    });
+                });
             </script>
     {% endif %}
     <div class="jumbotron">
@@ -20,13 +21,9 @@
             <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
             {{ form_end(form) }}
         </div>
-        <div class="">
-
-            {% for case in cases %}
-
-            {% else %}
-                <span colspan="5">no records found</span>
-            {% endfor %}
-        </div>
     </div>
+        <div class="alert alert-dismissible alert-warning">
+
+        </div>
+
 {% endblock %}

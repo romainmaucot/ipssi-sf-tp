@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    {{ result.tirage }}
-    {% dump(result) %}
-    {% for row in result %}
-
-        {{ row }}
-    {% else %}
-        <span colspan="5">no records found</span>
-    {% endfor %}
-
+    <div id="res">
+        {% for row in result %}
+            {{ row }}<br>
+        {% else %}
+            <span colspan="5">no records found</span>
+        {% endfor %}
+    </div>
 {% endblock %}
