@@ -18,7 +18,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
-    public function OrderArticle()
+    public function orderArticle()
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.publish_date', 'DESC')

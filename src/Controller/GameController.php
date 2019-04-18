@@ -125,7 +125,6 @@ class GameController extends AbstractController
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
                         $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
-
                     } else {
                         $result[$player->getId()] = $player->getUsername().' à Perdu ';
                     }
@@ -152,9 +151,10 @@ class GameController extends AbstractController
                 $this->renderView(
                     'mail/game.html.twig',
                     ['name' => 'rvtveveveve']
-                )
-            ,'text/plain')
-            ->addPart('','text/html')
+                ),
+                'text/plain'
+            )
+            //->addPart('', 'text/html')
         ;
         $mailer->send($message);
 
