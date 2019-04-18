@@ -47,7 +47,12 @@ class UserManager
             return $total;
         }
         foreach ($aPlayer as $player) {
-            $total  += $player->getNexBet();
+            $miseStr = $this->getMise($player->getNextBet());
+            $miseStr = array_filter(explode(',', $miseStr));
+
+            foreach ($miseStr as $row) {
+                $total  += (int)$row;
+            }
         }
 
         return $total;

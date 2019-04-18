@@ -31,21 +31,21 @@ class GameController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function play(GameRepository $gameRepository, Request $request) : Response
+    public function play(GameRepository $gameRepository, UserRepository $userRepository, Request $request) : Response
     {
-        $lastId = $gameRepository->findLast();
-        if (!$lastId) {
+        $lastGame = $gameRepository->findLast();
+        if (!$lastGame) {
             throw new Exception('Il n\'y a pas de jeux');
         }
 
-        $game = new Game();
-        $cases = $game->getCases();
+
+        $cases = $lastGame->getCases();
         $aCases = [];
         foreach ($cases as $row) {
             $aCases[ $row->getNumber() ] = $row->getColor();
         }
         $form = $this->createForm(PlayType::class, [
-            'round'=> $lastId[0]->getId(),
+            'round'=> $lastGame->getId(),
             /** la mise par défault est égale à 10% du montant total du compte en banque de l'utilisateur */
             'mise'=>  ($this->getUser() ? $this->getUser()->getAmount() : 0 ) * (0.10),
             'numero'=> $aCases,
@@ -69,27 +69,33 @@ class GameController extends AbstractController
             $this->getUser()->setNextBet($numero.'-'.$mise);
 
             //--------------------------Game---------------------------------------
-            $game->addUser($this->getUser());
-            $game->setStarted(new \DateTime('now'));
+
+            $lastGame->addUser($this->getUser());
             //--------------------------Doctrine---------------------------------------
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($this->getUser());
-            $entityManager->persist($game);
+            $entityManager->persist($lastGame);
             $entityManager->flush();
             try {
                 $entityManager->flush();
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-            $msg = 'Vous avez misé '.$data['mise'].' $ '.'pour la prochaine partie. Le montant de table s\'élevra à '.$userManager->tableGain().
-                '. Vous jouer pour un gain potentiel de '.'$foo';
+            $msg = 'Vous avez misé '.$data['mise'].'$ sur la case '.$data['case'].
+                ' pour la prochaine partie. Le montant de table s\'élevra à '.
+                ($userManager->tableGain($userRepository)+$data['mise']).
+                '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
-            return $this->redirectToRoute('game_play', ['message' => $msg]);
+            return $this->render('game/play.html.twig', [
+                'form'      => $form->createView(),
+                'cases'     => $cases ? : [],
+                'message'   => $msg ? : ''
+            ]);
         }
 
         return $this->render('game/play.html.twig', [
-            'form' => $form->createView(),
-            'cases' => $cases ? : []
+            'form'      => $form->createView(),
+            'cases'     => $cases ? : [],
         ]);
     }
 
@@ -118,11 +124,12 @@ class GameController extends AbstractController
 
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber() && $cases[$case]->getColor() == $finalResult->getColor()) {
-                        $result[$player->getId()] = 'à Gagné '.$betAmount[$key].' x...';
+                        $result[$player->getId()] = $player->getUsername().'  à Gagné '.($betAmount[$key] * 35);
                     } else {
-                        $result[$player->getId()] = 'à Perdu ';
+                        $result[$player->getId()] = $player->getUsername().' à Perdu '.$betAmount[$key];
                     }
                 }
+                array_merge($result, ['tirage'=> 'Tirage : '.$finalResult->getNumber().' : '.$finalResult->getColor()]);
             }
         }
 
@@ -138,13 +145,15 @@ class GameController extends AbstractController
     {
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('loryleticee@gmail.com')
+            ->setSubject('Votre dernier pari')
             ->setTo('loryleticee@gmail.com')
             ->setBody(
                 $this->renderView(
-                    'game/play.html.twig',
+                    'mail/game.html.twig',
                     ['name' => 'rvtveveveve']
                 )
-            )
+            ,'text/plain')
+            ->addPart('','text/html')
         ;
         $mailer->send($message);
 

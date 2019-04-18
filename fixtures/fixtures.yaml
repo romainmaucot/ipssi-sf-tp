@@ -4,15 +4,17 @@ App\Entity\User:
     username: 'admin'
     roles: '[ROLE_ADMIN]'
     mail: 'admin@admin.com'
-    password: '\$2y\$13\$4FDQGQcyCPMe9.imSIFAyOVF2mk2Qm65Nis7KShL50EX2q37DBy/G'
-    amount: '<numberBetween(1, 30)>'
+    password: '\$2y\$13\$9k7QDtyOle8XXLif/4GuseiRWllCVZFCdzdiOb0s42vgQcvf9l/L.'
+    amount: '<numberBetween(1, 1000)>'
+
+
 
   user:
     __construct: false
     username: 'user'
     roles: '[ROLE_USER]'
     mail: 'user@user.com'
-    password: '\$2y\$13\$tqyyw2nNyIYvkE5y4f4g.ehFFZWKvSHSZ44kX3O4vXtk8b2TB5Klu'
+    password: '\$2y\$13\$rTeDuTojdqSqCXXZNXyp9erOYHJjVnuaSQLAkUAIXGaLcmlN8JGaa'
     amount: '<numberBetween(1, 1000)>'
 
 
