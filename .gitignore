@@ -6,9 +6,9 @@
 /public/bundles/
 .idea/
 vendor/
-var/
+var/*
 .env
-var/log/dev.log
+
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###
