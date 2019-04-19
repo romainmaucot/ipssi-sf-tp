@@ -6,12 +6,12 @@ FIG=docker-compose
 HAS_DOCKER:=$(shell command -v $(FIG) 2> /dev/null)
 
 ifdef HAS_DOCKER
-    ifdef APP_ENV
-        EXECROOT=$(FIG) exec -e APP_ENV=$(APP_ENV) app
-        EXEC=$(FIG) exec -e APP_ENV=$(APP_ENV) -u $(USERID):$(GROUPID) app
+	ifdef APP_ENV
+		EXECROOT=$(FIG) exec -e APP_ENV=$(APP_ENV) app
+		EXEC=$(FIG) exec -e APP_ENV=$(APP_ENV) -u $(USERID):$(GROUPID) app
 	else
-        EXECROOT=$(FIG) exec app
-        EXEC=$(FIG) exec -u $(USERID):$(GROUPID) app
+		EXECROOT=$(FIG) exec app
+		EXEC=$(FIG) exec -u $(USERID):$(GROUPID) app
 	endif
 else
 	EXECROOT=
@@ -47,7 +47,7 @@ start: docker-compose.override.yml
 
 .PHONY: start-mounia
 start-mounia:
-    composer install
+	composer install
 	$(CONSOLE) doctrine:database:create --if-not-exists
 	$(CONSOLE) doctrine:schema:update --force
 	$(CONSOLE) make:migration
