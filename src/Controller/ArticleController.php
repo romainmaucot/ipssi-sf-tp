@@ -47,9 +47,7 @@ class ArticleController extends AbstractController
      */
     public function show(Article $article, Request $request): Response
     {
-        $form               = $this->createForm(CommentType::class, [
-            'article'       => $article,
-        ]);
+        $form               = $this->createForm(CommentType::class);
 
         $form->handleRequest($request);
 
@@ -60,11 +58,11 @@ class ArticleController extends AbstractController
                 return $this->redirectToRoute('article_index', ['message' => 'Vous n\'ête pas connecté']);
             }
 
-            $article        = $data['article'];
             $comment        = new Comment();
             $comment->setContent($data['content']);
             $comment->setPublishDate(new \DateTime('now'));
-
+            $comment->setCensored(0);
+            $comment->setArticle($article);
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->persist($comment);
@@ -76,8 +74,10 @@ class ArticleController extends AbstractController
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
 
-            return $this->render('article/index.html.twig', [
-                'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
+            return $this->render('article/index.html.twig/'.$article->getId(), [
+                'amount'    => $this->getUser() ? $this->getUser()->getAmount() : 1,
+                'article'   => $article,
+                'comments'  => $article->getComments(),
             ]);
         }
 
