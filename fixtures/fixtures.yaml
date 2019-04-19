@@ -6,8 +6,7 @@ App\Entity\User:
     mail: 'admin@admin.com'
     password: '\$2y\$13\$9k7QDtyOle8XXLif/4GuseiRWllCVZFCdzdiOb0s42vgQcvf9l/L.'
     amount: '<numberBetween(1, 1000)>'
-
-
+    reset_token: '1,2,3,4'
 
   user:
     __construct: false
@@ -16,6 +15,7 @@ App\Entity\User:
     mail: 'user@user.com'
     password: '\$2y\$13\$rTeDuTojdqSqCXXZNXyp9erOYHJjVnuaSQLAkUAIXGaLcmlN8JGaa'
     amount: '<numberBetween(1, 1000)>'
+    reset_token: '1,2,3,4'
 
 
 App\Entity\Game:
