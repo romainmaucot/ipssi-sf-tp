@@ -2,7 +2,6 @@
 
 namespace App\Manager;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 
 class UserManager
@@ -25,20 +24,15 @@ class UserManager
     public function getNumber(?string $bet = null) : string
     {
         $data = strstr($bet, '-', false);
-        $data = substr($data, 1, strlen($data));
+        $data = $data ? substr($data, 1, strlen($data)) : '';
 
         return $data ? $data.',' : '';
     }
 
     public function potentialGain(UserRepository $userRepository)
     {
-       /*
-       $aPlayer =  $userRepository->nextPlayers();
-       foreach ($aPlayer as $player) {
-           $total[] +=;
-       }*/
     }
-    public function tableGain(UserRepository $userRepository) : float
+    public function tableGain(UserRepository $userRepository) : int
     {
         $aPlayer =  $userRepository->nextPlayers();
         $total   = 0 ;

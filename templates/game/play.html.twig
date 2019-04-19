@@ -4,29 +4,33 @@
 
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script>
-                function ouvrir(){
-                    let f = open('http://127.0.0.1:8082/game/run','Run the Game','width=400, height=400');
-                    top.wait();
-                    f.close();
-                }
-                ouvrir();
+                $(function () {
+                    $('.alert-dismissible').html("<img src='/Eclipse-1s-200px.svg'> <h1>La roue tourne , retour à la case départ 🎰 </h1> ");
+                    setTimeout(function(){
+                        $.get('http://127.0.0.1:8082/game/run', function (body) {
+                            $('.alert-dismissible').html(body);
+                        });
+                    },10000);
+                });
             </script>
     {% endif %}
     <div class="jumbotron">
+        {% if form is defined %}
         <div class="form-group">
             {{ form_start(form) }}
             {{ form_widget(form) }}
             <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
             {{ form_end(form) }}
         </div>
-        <div class="">
-
-            {% for case in cases %}
-
-            {% else %}
-                <span colspan="5">no records found</span>
-            {% endfor %}
-        </div>
+        {% else %}
+            {% if error is defined %}
+                <span>{{ error }}</span>
+            {% endif %}
+        {% endif %}
     </div>
+{% endblock %}
+{% block footer %}
+    <div class="alert alert-dismissible alert-secondary"></div>
 {% endblock %}

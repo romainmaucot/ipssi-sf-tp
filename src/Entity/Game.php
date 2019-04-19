@@ -33,21 +33,34 @@ class Game
      */
     private $Amount;
 
+    /**
+     * Game constructor.
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getStarted(): ?\DateTimeInterface
     {
         return $this->started;
     }
 
+    /**
+     * @param \DateTimeInterface $started
+     * @return Game
+     */
     public function setStarted(\DateTimeInterface $started): self
     {
         $this->started = $started;
@@ -63,6 +76,10 @@ class Game
         return $this->users;
     }
 
+    /**
+     * @param User $user
+     * @return Game
+     */
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
@@ -72,6 +89,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @return Game
+     */
     public function removeUser(User $user): self
     {
         if ($this->users->contains($user)) {
@@ -81,11 +102,18 @@ class Game
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getAmount(): ?int
     {
         return $this->Amount;
     }
 
+    /**
+     * @param int $Amount
+     * @return Game
+     */
     public function setAmount(int $Amount): self
     {
         $this->Amount = $Amount;
@@ -93,6 +121,9 @@ class Game
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getCases(): array
     {
         $casesNumber = [32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,
@@ -106,5 +137,10 @@ class Game
         }
 
         return $cases;
+    }
+    public function __toString(): string
+    {
+
+        return $this->id;
     }
 }

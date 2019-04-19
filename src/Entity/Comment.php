@@ -27,8 +27,7 @@ class Comment
     private $publish_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      */
     private $article;
 
@@ -36,6 +35,11 @@ class Comment
      * @ORM\Column(type="boolean")
      */
     private $censored;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
 
     public function getId(): ?int
     {
@@ -86,6 +90,18 @@ class Comment
     public function setCensored(bool $censored): self
     {
         $this->censored = $censored;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,12 +19,31 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
-    public function orderArticle()
+
+    /**
+     * @param int $currentPage
+     * @return Paginator
+     */
+    public function orderArticle(int $currentPage = 1)
+    {
+         return $this->createQueryBuilder('a')
+            ->orderBy('a.publish_date', 'DESC')
+            ->andWhere('a.publish_date <= :val')
+            ->setParameter('val', new \DateTime('now'))
+            ->getQuery()
+            ->setMaxResults(10)
+            ->setFirstResult(($currentPage-1) * 10)
+            ->getResult()
+            ;
+    }
+    public function nbrArticle()
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.publish_date', 'DESC')
+            ->select('count(a.id)')
+            ->andWhere('a.publish_date <= :val')
+            ->setParameter('val', new \DateTime('now'))
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
             ;
     }
 

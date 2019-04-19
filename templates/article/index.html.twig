@@ -4,7 +4,9 @@
 
 {% block body %}
     <h1>Tous les Articles</h1>
-
+    {% if message is defined %}nklmklnklm
+        <span class="alert-danger"> {% dump(message)%} </span>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
@@ -27,5 +29,13 @@
         {% endfor %}
         </tbody>
     </table>
-
+        <div class="col-md-2 col-md-offset-5">
+            <ul class="pagination">
+                {% for i in 1..maxPages %}
+                    <li class="page-item active">
+                        <a class="page-link" href="{{ path('article_index', {page: i}) }}">{{ i }}</a>
+                    </li>&nbsp;
+                {% endfor %}
+            </ul>
+        </div>
 {% endblock %}
