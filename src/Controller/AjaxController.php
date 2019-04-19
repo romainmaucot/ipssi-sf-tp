@@ -33,4 +33,30 @@ class AjaxController extends AbstractController
 
         return new Response("$isCensored");
     }
+
+    /**
+     * @Route("/ajax/mail", name="ajax_mail")
+     * @param \Swift_Mailer $mailer
+     * @return Response
+     */
+    public function sendMAil(\Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('loryleticee@gmail.com')
+            ->setSubject('Votre dernier pari')
+            ->setTo('loryleticee@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'mail/mail.html.twig',
+                    ['name' => 'rvtveveveve']
+                ),
+                'text/plain'
+            )
+            //->addPart('', 'text/html')
+        ;
+        $mailer->send($message);
+
+        return $this->render('game/play.html.twig', [
+        ]);
+    }
 }
