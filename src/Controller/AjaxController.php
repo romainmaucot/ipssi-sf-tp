@@ -47,7 +47,7 @@ class AjaxController extends AbstractController
             ->setTo('loryleticee@gmail.com')
             ->setBody(
                 $this->renderView(
-                    'mail/mail.html.twig',
+                    'ajax/mail.html.twig',
                     ['name' => 'rvtveveveve']
                 ),
                 'text/plain'
