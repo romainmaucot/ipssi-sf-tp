@@ -69,11 +69,14 @@ cc: perm
 exec:
 	$(EXEC) /bin/bash
 
-.PHONY: tests ## Run bash in the app container
+.PHONY: tests ## Make code Tests
 tests:
 	$(EXEC) vendor/bin/phpcs src/
-	$(EXEC) vendor/bin/phpcbf src/
 	$(EXEC) vendor/bin/phpstan analyse --level=6 src
+
+.PHONY: fix ## Fix error code test
+fix:
+    $(EXEC) vendor/bin/phpcbf src/
 
 
 ##

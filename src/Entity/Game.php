@@ -138,6 +138,7 @@ class Game
 
         return $cases;
     }
+
     public function __toString(): string
     {
 
