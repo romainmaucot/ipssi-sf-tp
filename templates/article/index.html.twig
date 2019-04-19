@@ -14,8 +14,13 @@
                     url: "http://127.0.0.1:8082/ajax/active",
                     dataType : 'html',
                     data: { idarticle: id},
-                    success: function(){
+                    success: function(response){
                         $('#'+id).toggleClass('alert-danger');
+                        if (response === false) {
+                            $('#'+id).html('Censuré');
+                        } else {
+                            $('#'+id).html('Non Censuré');
+                        }
                     },
                     error : function(){
                         document.write('no');
@@ -44,7 +49,7 @@
                 <td>{{ article.publishDate ? article.publishDate|date('Y-m-d à H:i') : '' }}</td>
                 <td><a href="{{ path('article_show', {'id': article.id}) }}">Consulter</a></td>
                 <td><!-- Default switch -->
-                    <button id='{{ article.id }}' class="activeComs">Activate</button>
+                    <button id='{{ article.id }}' class="activeComs btn btn-success"></button>
                 </td>
             </tr>
         {% else %}
