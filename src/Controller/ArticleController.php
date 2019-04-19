@@ -73,12 +73,6 @@ class ArticleController extends AbstractController
             } catch (Exception $e) {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
-
-            return $this->render('article/index.html.twig/'.$article->getId(), [
-                'amount'    => $this->getUser() ? $this->getUser()->getAmount() : 1,
-                'article'   => $article,
-                'comments'  => $article->getComments(),
-            ]);
         }
 
         return $this->render('article/show.html.twig', [
