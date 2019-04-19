@@ -47,7 +47,7 @@ start: docker-compose.override.yml
 
 .PHONY: start-mounia
 start-mounia:
-	composer install
+    composer install
 	$(CONSOLE) doctrine:database:create --if-not-exists
 	$(CONSOLE) doctrine:schema:update --force
 	$(CONSOLE) make:migration
