@@ -9,12 +9,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Bonjour {{ app.user.username }}! </h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/src/Controller/AccountController.php'|file_link(0) }}">src/Controller/AccountController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/Maucot/TP_Symfony-test/ipssi-sf-tp/templates/account/index.html.twig'|file_link(0) }}">templates/account/index.html.twig</a></code></li>
-    </ul>
-</div>
+    Historique de vos parties :
+    {% for game in games %}
+        <div ><label>{{ game.id }}</label> : <br>  </div>
+        <p>Jouée le </p>
+        {% else %}
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
+        </div>
+    {% endfor %}
 {% endblock %}

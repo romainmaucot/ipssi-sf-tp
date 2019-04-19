@@ -20,12 +20,13 @@
             </tr>
             <tr>
                 <th>Publié le</th>
-                <td>{{ article.publishDate ? article.publishDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.publishDate ? article.publishDate|date('Y-m-d à H:i') : '' }}</td>
             </tr>
         </tbody>
     </table>
     {% for comment in comments %}
-           <div class="alert alert-dismissible alert-success sm"> {{ comment.content }} </div>
+           <div class="alert alert-dismissible alert-success sm"><label>{{ comment.username }}</label> : <br> {{ comment.content }} </div>
+        <p>Publiée le {{ comment.publishDate ? article.publishDate|date('Y-m-d à H:i') : ''}}</p>
     {% else %}
         <span class="alert-secondary" colspan="5">no comment found</span>
     {% endfor %}

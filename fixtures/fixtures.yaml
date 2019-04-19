@@ -34,10 +34,10 @@ App\Entity\Article:
       image: '/game<numberBetween(1,5)>.jpg'
 
 App\Entity\Comment:
-  comment{1..90}:
+  comment{1..20}:
     __construct: false
     username : '<name()>'
-    article: "@article-<numberBetween(1,4)>"
+    article: "@article-<numberBetween(1,15)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
     censored: false
