@@ -32,4 +32,3 @@ class AjaxController extends AbstractController
         return new Response('OK', 200);
     }
 }
-
