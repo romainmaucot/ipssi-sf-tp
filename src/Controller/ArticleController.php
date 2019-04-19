@@ -53,7 +53,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data           = $form->getData();
 
-            if (!$this->getUser()) {
+            if (!$this->getUser() && !$data['username']) {
                 return $this->redirectToRoute('article_index', ['message' => 'Vous n\'ête pas connecté']);
             }
 
@@ -61,6 +61,7 @@ class ArticleController extends AbstractController
             $comment->setContent($data['content']);
             $comment->setPublishDate(new \DateTime('now'));
             $comment->setCensored(false);
+            $comment->setUsername($this->getUser() ? $this->getUser()->getUsername() : $data['username']);
             $comment->setArticle($article);
 
             $entityManager  = $this->getDoctrine()->getManager();
