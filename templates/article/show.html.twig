@@ -5,6 +5,13 @@
 {% block body %}
     <h1>{{ article.title }}</h1>
 
+    <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+        <div class="card-header">
+            {% if article.image != '' %}
+                <img width='600' heigth='300' src='{{ article.image }}'>
+            {% endif %}
+        </div>
+    </div>
     <table class="table">
         <tbody>
             <tr>
