@@ -29,6 +29,7 @@ class RegistrationController extends AbstractController
         UserAuthenticator $authenticator
     ): Response {
         $user = new User();
+        // $user->setMail($request->request->get('mail'));
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -55,7 +56,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
