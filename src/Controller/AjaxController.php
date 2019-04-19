@@ -20,15 +20,17 @@ class AjaxController extends AbstractController
     public function active(ArticleRepository $articleRepository, Request $request) : Response
     {
         $id         = $request->get('idarticle');
-
-        if ($id) {
+        if (!$id) {
             return new Response('No article found', 300);
         }
         $article    = $articleRepository->find($id);
 
         $isCensored = $article->getCensored();
-        $article->setCensored($isCensored ? false : true);
+        $article->setCensored($isCensored === false ? true : false);
+        $entityManager  = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
 
-        return new Response('OK', 200);
+        return new Response("$isCensored");
     }
 }
