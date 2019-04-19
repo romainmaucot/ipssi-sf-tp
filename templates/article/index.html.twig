@@ -41,7 +41,7 @@
         {% for article in articles %}
             <tr>
                 <td>{{ article.title }}</td>
-                <td>{{ article.publishDate ? article.publishDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.publishDate ? article.publishDate|date('Y-m-d à H:i') : '' }}</td>
                 <td><a href="{{ path('article_show', {'id': article.id}) }}">Consulter</a></td>
                 <td><!-- Default switch -->
                     <button id='{{ article.id }}' class="activeComs">Activate</button>

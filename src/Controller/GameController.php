@@ -205,4 +205,18 @@ class GameController extends AbstractController
         return $this->render('game/play.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/account", name="account_show")
+     * @param GameRepository $gameRepository
+     * @return Response
+     */
+    public function userGame(GameRepository $gameRepository): Response
+    {
+        $game = $gameRepository->findAll();
+
+        return $this->render('account/index.html.twig', [
+            'games'      => $game,
+        ]);
+    }
 }
