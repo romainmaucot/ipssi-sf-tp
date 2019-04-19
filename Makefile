@@ -76,7 +76,7 @@ tests:
 
 .PHONY: fix ## Fix error code test
 fix:
-    $(EXEC) vendor/bin/phpcbf src/
+	$(EXEC) vendor/bin/phpcbf src/
 
 
 ##
