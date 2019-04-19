@@ -5,13 +5,15 @@
 {% block body %}
     <script>
         $(function () {
-            var id = this.id;
+
+
             $('.activeComs').click(function (){
+                var id = this.id;
                 $.ajax({
                     method: "POST",
                     url: "http://127.0.0.1:8082/ajax/active",
                     dataType : 'html',
-                    data: { article: id},
+                    data: { idarticle: id},
                     success: function(){
                         $('#'+id).toggleClass('alert-danger');
                     },

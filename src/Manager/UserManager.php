@@ -29,9 +29,6 @@ class UserManager
         return $data ? $data.',' : '';
     }
 
-    public function potentialGain(UserRepository $userRepository)
-    {
-    }
     public function tableGain(UserRepository $userRepository) : int
     {
         $aPlayer =  $userRepository->nextPlayers();

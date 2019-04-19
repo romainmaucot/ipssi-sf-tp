@@ -19,8 +19,9 @@ class AjaxController extends AbstractController
      */
     public function active(ArticleRepository $articleRepository, Request $request) : Response
     {
-        $id         = $request->get('article');
-        if (!$id) {
+        $id         = $request->get('idarticle');
+
+        if ($id) {
             return new Response('No article found', 300);
         }
         $article    = $articleRepository->find($id);
@@ -31,3 +32,4 @@ class AjaxController extends AbstractController
         return new Response('OK', 200);
     }
 }
+
