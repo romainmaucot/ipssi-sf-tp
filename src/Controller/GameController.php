@@ -168,7 +168,7 @@ class GameController extends AbstractController
             $article        = new Article();
             $article->setContent($content);
             $article->setTitle('Résultat du jeux n° '.$lastGame->getId());
-            $article->setPublishDate(new \DateTime('now'));
+            $article->setPublishDate(new \DateTime('now + 4hour'));
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             //-------------------------------Cree un nouveau jeu---------------------------------
@@ -184,7 +184,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/game/mail", name="game_mail")
+     * @Route("/mail/mail", name="game_mail")
      * @param \Swift_Mailer $mailer
      * @return Response
      */
@@ -196,7 +196,7 @@ class GameController extends AbstractController
             ->setTo('loryleticee@gmail.com')
             ->setBody(
                 $this->renderView(
-                    'mail/game.html.twig',
+                    'mail/mail.html.twig',
                     ['name' => 'rvtveveveve']
                 ),
                 'text/plain'
@@ -205,6 +205,8 @@ class GameController extends AbstractController
         ;
         $mailer->send($message);
 
-        return $this->render('game/play.html.twig');
+        return $this->render('game/play.html.twig', [
+            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
+        ]);
     }
 }

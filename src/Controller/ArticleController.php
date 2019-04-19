@@ -27,7 +27,7 @@ class ArticleController extends AbstractController
     {
         $page               = $request->query->get('page') ? : 1 ;
         $articles           = $articleRepository->orderArticle($page);
-        $totalPosts         = count($articleRepository->findAll());
+        $totalPosts         = $articleRepository->nbrArticle();
         $maxPages           = ceil($totalPosts / 10);
 
         return $this->render('article/index.html.twig', [
@@ -63,6 +63,7 @@ class ArticleController extends AbstractController
             $comment->setPublishDate(new \DateTime('now'));
             $comment->setCensored(false);
             $comment->setArticle($article);
+
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->persist($comment);

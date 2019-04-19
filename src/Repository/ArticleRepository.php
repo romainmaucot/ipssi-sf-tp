@@ -28,10 +28,22 @@ class ArticleRepository extends ServiceEntityRepository
     {
          return $this->createQueryBuilder('a')
             ->orderBy('a.publish_date', 'DESC')
+            ->andWhere('a.publish_date <= :val')
+            ->setParameter('val', new \DateTime('now'))
             ->getQuery()
             ->setMaxResults(10)
             ->setFirstResult(($currentPage-1) * 10)
             ->getResult()
+            ;
+    }
+    public function nbrArticle()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->andWhere('a.publish_date <= :val')
+            ->setParameter('val', new \DateTime('now'))
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 

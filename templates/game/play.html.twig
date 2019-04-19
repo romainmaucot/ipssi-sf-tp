@@ -25,7 +25,9 @@
             {{ form_end(form) }}
         </div>
         {% else %}
-            <span>{{ error }}</span>
+            {% if error is defined %}
+                <span>{{ error }}</span>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
