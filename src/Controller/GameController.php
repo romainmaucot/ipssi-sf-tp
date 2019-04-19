@@ -28,7 +28,6 @@ class GameController extends AbstractController
     {
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
-            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 
@@ -98,14 +97,12 @@ class GameController extends AbstractController
                 'form'      => $form->createView(),
                 'cases'     => $cases ? : [],
                 'message'   => $msg ? : '',
-                'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
             ]);
         }
 
         return $this->render('game/play.html.twig', [
             'form'          => $form->createView(),
             'cases'         => $cases ? : [],
-            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 
@@ -206,7 +203,6 @@ class GameController extends AbstractController
         $mailer->send($message);
 
         return $this->render('game/play.html.twig', [
-            'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 }

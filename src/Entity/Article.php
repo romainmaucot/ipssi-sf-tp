@@ -43,6 +43,11 @@ class Article
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $censored;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -140,6 +145,18 @@ class Article
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCensored(): ?bool
+    {
+        return $this->censored;
+    }
+
+    public function setCensored(bool $censored): self
+    {
+        $this->censored = $censored;
 
         return $this;
     }

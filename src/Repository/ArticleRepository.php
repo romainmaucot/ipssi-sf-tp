@@ -22,7 +22,8 @@ class ArticleRepository extends ServiceEntityRepository
 
     /**
      * @param int $currentPage
-     * @return Paginator
+     * @return mixed
+     * @throws \Exception
      */
     public function orderArticle(int $currentPage = 1)
     {
@@ -36,12 +37,40 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function orderArticleAdmin(int $currentPage = 1)
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.publish_date', 'DESC')
+            ->getQuery()
+            ->setMaxResults(10)
+            ->setFirstResult(($currentPage-1) * 10)
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function nbrArticle()
     {
         return $this->createQueryBuilder('a')
             ->select('count(a.id)')
             ->andWhere('a.publish_date <= :val')
             ->setParameter('val', new \DateTime('now'))
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function nbrArticleAdmin()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult()
             ;

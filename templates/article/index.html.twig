@@ -3,6 +3,27 @@
 {% block title %}Blog{% endblock %}
 
 {% block body %}
+    <script>
+        $(function () {
+
+
+            $('.activeComs').click(function (){
+                var id = this.id;
+                $.ajax({
+                    method: "POST",
+                    url: "http://127.0.0.1:8082/ajax/active",
+                    dataType : 'html',
+                    data: { idarticle: id},
+                    success: function(){
+                        $('#'+id).toggleClass('alert-danger');
+                    },
+                    error : function(){
+                        document.write('no');
+                    }
+                });
+            });
+        });
+    </script>
     <h1>Tous les Articles</h1>
     {% if message is defined %}nklmklnklm
         <span class="alert-danger"> {% dump(message)%} </span>
@@ -12,7 +33,8 @@
             <tr>
                 <th>Titre</th>
                 <th>Publié le</th>
-                <th></th>
+                <th>👁</th>
+                <th>Commentaires</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +43,9 @@
                 <td>{{ article.title }}</td>
                 <td>{{ article.publishDate ? article.publishDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td><a href="{{ path('article_show', {'id': article.id}) }}">Consulter</a></td>
+                <td><!-- Default switch -->
+                    <button id='{{ article.id }}' class="activeComs">Activate</button>
+                </td>
             </tr>
         {% else %}
             <tr>
