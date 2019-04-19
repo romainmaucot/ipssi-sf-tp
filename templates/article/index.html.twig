@@ -16,7 +16,8 @@
                     data: { idarticle: id},
                     success: function(response){
                         $('#'+id).toggleClass('alert-danger');
-                        if (response === false) {
+                        console.log(response);
+                        if (response === '') {
                             $('#'+id).html('Censuré');
                         } else {
                             $('#'+id).html('Non Censuré');
