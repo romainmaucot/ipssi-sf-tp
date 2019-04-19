@@ -32,6 +32,7 @@ App\Entity\Article:
       content: 'Résultats de la partie : user gagne <numberBetween(1, 1000)> euros'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
       image: '/game<numberBetween(1,5)>.jpg'
+      censored: false
 
 App\Entity\Comment:
   comment{1..20}:

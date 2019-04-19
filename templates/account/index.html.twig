@@ -13,12 +13,8 @@
 
     Historique de vos parties :
     {% for game in games %}
-        <div ><label>{{ game.id }}</label> : <br>  </div>
-        <p>Jouée le </p>
-        {% else %}
         <ul>
-            <li></li>
-            <li></li>
+            <li><div ><label>{{ game.id }}</label> : <br>  </div></li>
         </ul>
         </div>
     {% endfor %}
