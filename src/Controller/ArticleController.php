@@ -26,8 +26,16 @@ class ArticleController extends AbstractController
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {
         $page               = $request->query->get('page') ? : 1 ;
-        $articles           = $articleRepository->orderArticle($page);
-        $totalPosts         = $articleRepository->nbrArticle();
+        $isAdmin            = in_array('ROLE_ADMIN', $this->getUser()->getRoles());
+
+        $articles           = $isAdmin     === true ?
+            $articleRepository->orderArticleAdmin($page) :
+            $articleRepository->orderArticle($page);
+
+        $totalPosts         = $isAdmin     === true ?
+            $articleRepository->nbrArticleAdmin():
+            $articleRepository->nbrArticle();
+
         $maxPages           = ceil($totalPosts / 10);
 
         return $this->render('article/index.html.twig', [
