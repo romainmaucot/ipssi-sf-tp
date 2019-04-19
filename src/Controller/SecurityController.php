@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,7 +65,7 @@ class SecurityController extends AbstractController
             $mail = $request->request->get('mail');
 
             $entityManager = $this->getDoctrine()->getManager();
-            $user = $entityManager->getRepository(User::class)->findOneByEmail($mail);
+            $user = $entityManager->getRepository(User::class)->findOneByMail($mail);
             /* @var $user User */
 
             if ($user === null) {
@@ -95,10 +96,10 @@ class SecurityController extends AbstractController
 
             $this->addFlash('notice', 'Mail envoyé');
 
-            return $this->redirectToRoute('article/index.html.twig');
+            return $this->redirectToRoute('security/login.html.twig');
         }
 
-        // return $this->render('security/forgotten_password.html.twig');
+         return $this->render('security/forgotten_password.html.twig');
     }
 
         // return $this->render('send_mail/index.html.twig', [
