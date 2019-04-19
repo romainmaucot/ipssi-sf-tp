@@ -91,7 +91,7 @@ class ArticleController extends AbstractController
         }
         return $this->render('article/show.html.twig', [
             'article'       => $article,
-            'comments'      => $article->getComments(),
+            'comments'      => $article->getCensored() === false ? $article->getComments() : '',
             'form'          => isset($form) ? $form->createView() : '' ,
         ]);
     }
