@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\CommentType;
+use Exception;
 
 /**
  * @Route("/index")
@@ -35,15 +38,54 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     *
+     * @Route("/{id}", name="article_show")
      * @param Article $article
+     * @param Request $request
      * @return Response
+     * @throws \Exception
      */
-    public function show(Article $article): Response
+    public function show(Article $article, Request $request): Response
     {
+        $form               = $this->createForm(CommentType::class, [
+            'article'       => $article,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data           = $form->getData();
+
+            if (!$this->getUser()) {
+                return $this->redirectToRoute('article_index', ['message' => 'Vous n\'ête pas connecté']);
+            }
+
+            $article        = $data['article'];
+            $comment        = new Comment();
+            $comment->setContent($data['content']);
+            $comment->setPublishDate(new \DateTime('now'));
+
+            $entityManager  = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            try {
+                $entityManager->flush();
+            } catch (Exception $e) {
+                echo 'Caught exception: ', $e->getMessage(), "\n";
+            }
+
+            return $this->render('article/index.html.twig', [
+                'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
+            ]);
+        }
+
         return $this->render('article/show.html.twig', [
-            'article' => $article,
+            'article'       => $article,
+            'comments'      => $article->getComments(),
             'amount'        => $this->getUser() ? $this->getUser()->getAmount() : 1,
+            'form'          => $form->createView(),
         ]);
     }
 }

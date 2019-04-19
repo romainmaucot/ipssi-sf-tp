@@ -146,12 +146,12 @@ class GameController extends AbstractController
 
                         }*/
                         $result[] = $player->getUsername(). ' a joué'.(int)$betAmount[$key].
-                            '$ sur le '.$case.' et  à Gagné '.
+                            '$ sur le '.$case.' et  a Gagné '.
                             ((int)$betAmount[$key] * 35).'$';
                             $gameManager->payed($player, (int)$betAmount[$key] * 35);
                     } else {
                         $result[] = ucfirst($player->getUsername()) .
-                            ' a joué sur le '.$case.' et  à Perdu ';
+                            ' a joué sur le '.$case.' et  a Perdu ';
                     }
                 }
                 $player->setNextBet('');

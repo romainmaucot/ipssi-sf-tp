@@ -27,8 +27,7 @@ class Comment
     private $publish_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      */
     private $article;
 
