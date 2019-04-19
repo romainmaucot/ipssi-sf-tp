@@ -24,7 +24,6 @@ class CommentController extends AbstractController
     {
         return $this->render('comment/show.html.twig', [
             'comment'  => $comment,
-            'amount'   => $this->getUser() ? $this->getUser()->getAmount() : 1,
         ]);
     }
 }
