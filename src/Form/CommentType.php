@@ -15,7 +15,7 @@ class CommentType extends AbstractType
         $builder
             ->add('content', TextareaType::class)
             //->add('publish_date')
-            ->add('article',HiddenType::class,[
+            ->add('article', HiddenType::class, [
                 'disabled' => true,
             ]);
     }

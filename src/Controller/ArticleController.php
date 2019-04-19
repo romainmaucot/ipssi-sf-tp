@@ -61,7 +61,7 @@ class ArticleController extends AbstractController
             $comment        = new Comment();
             $comment->setContent($data['content']);
             $comment->setPublishDate(new \DateTime('now'));
-            $comment->setCensored(0);
+            $comment->setCensored(false);
             $comment->setArticle($article);
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
