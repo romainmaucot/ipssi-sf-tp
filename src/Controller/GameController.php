@@ -166,7 +166,8 @@ class GameController extends AbstractController
             $article->setContent($content);
             $article->setTitle('Résultat du jeux n° '.$lastGame->getId());
             $article->setPublishDate(new \DateTime('now + 4hour'));
-            $article->setImage('game1.jpg');
+            $article->setImage('/game1.jpg');
+            $article->setCensored(0);
             $entityManager  = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             //-------------------------------Cree un nouveau jeu---------------------------------
