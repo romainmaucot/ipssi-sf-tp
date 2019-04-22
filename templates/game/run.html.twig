@@ -7,13 +7,13 @@
             $('.alert-dismissible').html("<img src='/Eclipse-1s-200px.svg'> <h1>La roue tourne , retour à la case départ 🎰 </h1> ");
             let selector = document.querySelector('.result');
             let result = selector.dataset.isResult;
-            console.log(result);
             setTimeout(function(){
                 $.ajax({
                     method: "POST",
                     url: "http://127.0.0.1:8082/ajax/result",
+                    type : 'GET',
+                    data: 'result=' + result,
                     dataType : 'html',
-                    result: result,
                     success: function(page){
                         $('.alert-dismissible').html(page);
                     },
@@ -21,7 +21,7 @@
                         document.write('no');
                     }
                 })
-            },3000);
+            },2000);
         });
     </script>
 {% endblock %}

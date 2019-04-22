@@ -1,6 +1,6 @@
-{% dump(result) %}
-{% for row in result %}
-    {{ row }}<br>
+{{ result.tirage }}
+{% for row  in result.bets %}
+    <br> {{ row }}
 {% else %}
     <span colspan="5">no records found</span>
 {% endfor %}

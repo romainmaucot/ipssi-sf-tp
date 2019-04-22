@@ -8,6 +8,7 @@
 vendor/
 var/*
 var/
+Migrations/*
 .env
 ###< symfony/framework-bundle ###
 

@@ -154,12 +154,14 @@ class GameController extends AbstractController
                 }
                 $player->setNextBet('');
             }
-            $result         = array_merge(["tirage" => "Tirage -> ".$finalResult->getNumber().
-                "(".$finalResult->getColor().")"], $result);
+            $result         = array_merge(['tirage' => 'Tirage -> '.$finalResult->getNumber().
+                '('.$finalResult->getColor().')'], ['bets' => $result]);
 
             //----------------------------Cree un article------------------------------------
             $content        = '';
-            foreach ($result as $row) {
+            /** @var array $Bets */
+            $Bets           = (array)$result['bets'];
+            foreach ($Bets as $row) {
                 $content .= $row.' | ';
             }
             $lastGame       = $gameRepository->findLast();

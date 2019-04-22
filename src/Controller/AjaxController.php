@@ -68,6 +68,7 @@ class AjaxController extends AbstractController
     public function result(Request $request)
     {
         $result = $request->request->get('result');
+        $result = json_decode($result);
         return $this->render('ajax/result.html.twig', [
             'result' => $result,
         ]);
