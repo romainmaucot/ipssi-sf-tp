@@ -40,7 +40,7 @@ class GameController extends AbstractController
      */
     public function play(GameRepository $gameRepository, UserRepository $userRepository, Request $request) : Response
     {
-        $lastGame       = $gameRepository->findLast();
+        $lastGame           = $gameRepository->findLast();
         if (!$lastGame) {
             throw new Exception('Il n\'y a pas de jeux');
         }
@@ -57,7 +57,10 @@ class GameController extends AbstractController
             'round'         => $lastGame->getId(),
             'mise'          => ($this->getUser()->getAmount() * (0.10)),
             'numero'        => $aCases,
-        ]);
+            ], [
+                'user' => $this->getUser(),
+            ]
+        );
 
         $form->handleRequest($request);
 

@@ -5,7 +5,7 @@
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
     {% endif %}
-    <div class="jumbotron">
+    <div class="container jumbotron">
         {% if form is defined %}
         <div class="form-group">
             {{ form_start(form) }}
@@ -19,7 +19,4 @@
             {% endif %}
         {% endif %}
     </div>
-{% endblock %}
-{% block footer %}
-    <div class="alert alert-dismissible alert-secondary"></div>
 {% endblock %}
