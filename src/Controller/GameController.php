@@ -71,10 +71,11 @@ class GameController extends AbstractController
             $newAmount      = ($this->getUser()->getAmount()) - ($data['mise']);
             $this->getUser()->setAmount($newAmount);
             $lastGame->setAmount($lastGame->getAmount() + $data['mise']);
-            //--------------------------Prépare la mise pour la prochaine partie-----------------------------------
+            //--------------------------Prépare la mise pour la prochaine partie--------------------------------------
             $userManager    = new UserManager();
-            $numero         = $userManager->getNumber($this->getUser()->getNextBet()).$data['case'];
-            $mise           = $userManager->getMise($this->getUser()->getNextBet()).$data['mise'];
+            $numero         = $userManager->getMise($this->getUser()->getNextBet()).$data['case'];
+            $mise           = $userManager->getNumber($this->getUser()->getNextBet()).$data['mise'];
+
             $this->getUser()->setNextBet($numero.'-'.$mise);
 
             //--------------------------Game---------------------------------------
@@ -90,7 +91,7 @@ class GameController extends AbstractController
             }
             $msg = 'Vous avez misé '.$data['mise'].'$ sur la case '.$data['case'].
                 ' pour la prochaine partie. Le montant de table s\'élevra à '.
-                ($userManager->tableGain($userRepository) + $data['mise']).
+                ($userManager->tableGain($userRepository)).
                 '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
             return $this->render('game/play.html.twig', [

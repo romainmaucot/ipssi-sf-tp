@@ -4,17 +4,6 @@
 
     {% if message is defined %}
         <div class="alert alert-info">{{ message }}</div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script>
-                $(function () {
-                    $('.alert-dismissible').html("<img src='/Eclipse-1s-200px.svg'> <h1>La roue tourne , retour à la case départ 🎰 </h1> ");
-                    setTimeout(function(){
-                        $.get('http://127.0.0.1:8082/game/run', function (body) {
-                            $('.alert-dismissible').html(body);
-                        });
-                    },10000);
-                });
-            </script>
     {% endif %}
     <div class="jumbotron">
         {% if form is defined %}

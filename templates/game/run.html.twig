@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('.alert-dismissible').html("<img src='/Eclipse-1s-200px.svg'> <h1>La roue tourne , retour à la case départ 🎰 </h1> ");
+            setTimeout(function(){
+                $.get('http://127.0.0.1:8082/game/run', function (body) {
+                    $('.alert-dismissible').html(body);
+                });
+            },10000);
+        });
+    </script>
+{% endblock %}
+{% block footer %}
+    <div class="alert alert-dismissible alert-secondary"></div>
+{% endblock %}
