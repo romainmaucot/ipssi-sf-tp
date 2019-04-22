@@ -1,9 +1,8 @@
+{% dump(result) %}
 {% for row in result %}
     {{ row }}<br>
 {% else %}
     <span colspan="5">no records found</span>
 {% endfor %}
-<script>
-    $.get('http://127.0.0.1:8082/ajax/mail', function (body) {
-    });
-</script>
+
+

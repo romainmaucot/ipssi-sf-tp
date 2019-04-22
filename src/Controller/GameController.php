@@ -180,7 +180,7 @@ class GameController extends AbstractController
             //----------------------------------------------------------------
         }
 
-        return $this->render('game/result.html.twig', ['result' => $result]);
+        return $this->render('game/run.html.twig', ['result' => $result]);
     }
 
     /**

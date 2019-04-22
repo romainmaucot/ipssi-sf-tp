@@ -22,6 +22,7 @@ class ArticleController extends AbstractController
      * @param Request $request
      * @param ArticleRepository $articleRepository
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {

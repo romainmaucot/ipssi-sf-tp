@@ -59,4 +59,17 @@ class AjaxController extends AbstractController
         return $this->render('game/play.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/ajax/result", name="ajax_result")
+     * @param Request $request
+     * @return Response
+     */
+    public function result(Request $request)
+    {
+        $result = $request->request->get('result');
+        return $this->render('ajax/result.html.twig', [
+            'result' => $result,
+        ]);
+    }
 }
