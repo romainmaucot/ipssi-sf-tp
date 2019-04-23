@@ -53,14 +53,12 @@ class GameController extends AbstractController
         foreach ($cases as $row) {
             $aCases[ $row->getNumber() ] = $row->getColor();
         }
-        $form               = $this->createForm(PlayType::class, [
-            'round'         => $lastGame->getId(),
+        $form               = $this->createForm(PlayType::class, ['round'         => $lastGame->getId(),
             'mise'          => ($this->getUser()->getAmount() * (0.10)),
             'numero'        => $aCases,
             ], [
                 'user' => $this->getUser(),
-            ]
-        );
+            ]);
 
         $form->handleRequest($request);
 
