@@ -9,7 +9,6 @@ vendor/
 var/*
 var/
 Migrations/*
-.env
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###
