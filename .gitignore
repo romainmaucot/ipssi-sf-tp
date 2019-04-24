@@ -5,9 +5,9 @@
 /.env.*.local
 /public/bundles/
 .idea/
-vendor/
-var/*
-var/
+/vendor/
+/var/*
+/var/
 Migrations/*
 ###< symfony/framework-bundle ###
 
