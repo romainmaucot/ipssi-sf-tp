@@ -47,8 +47,12 @@ class GameController extends AbstractController
         if ($this->getUser()->getAmount() < 1) {
             return $this->redirectToRoute('article_index');
         }
-
+        /** @var array $cases */
         $cases              = $lastGame->getCases();
+        if (!$cases) {
+            $this->addFlash('error', 'No bet found');
+        }
+        /** @var array $aCases */
         $aCases             = [];
         foreach ($cases as $row) {
             $aCases[ $row->getNumber() ] = $row->getColor();
@@ -95,7 +99,7 @@ class GameController extends AbstractController
                 ($userManager->tableGain($userRepository)).
                 '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
-            $this->addFlash('success',$msg);
+            $this->addFlash('success', $msg);
             return $this->render('game/play.html.twig', [
                 'form'      => $form->createView(),
                 'cases'     => $cases ? : [],
@@ -135,9 +139,13 @@ class GameController extends AbstractController
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getMise($player->getNextBet());
                 $betAmount  = $userManager->getNumber($player->getNextBet());
-
+                /** @var array $numCase */
                 $numCase    = array_filter(explode(',', $numCase));
+                /** @var array $betAmount */
                 $betAmount  = array_filter(explode(',', $betAmount));
+                if (!$numCase || !$betAmount) {
+                    $this->addFlash('error', 'No bet found');
+                }
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber()) {
                         /*
