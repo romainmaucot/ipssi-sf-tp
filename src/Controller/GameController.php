@@ -95,10 +95,10 @@ class GameController extends AbstractController
                 ($userManager->tableGain($userRepository)).
                 '$. Vous jouer pour un gain potentiel de '.($data['mise'] * 35);
 
+            $this->addFlash('success',$msg);
             return $this->render('game/play.html.twig', [
                 'form'      => $form->createView(),
                 'cases'     => $cases ? : [],
-                'message'   => $msg ? : '',
             ]);
         }
 

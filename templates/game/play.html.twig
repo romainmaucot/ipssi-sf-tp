@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    {% if message is defined %}
-        <div class="alert alert-info">{{ message }}</div>
+    {% if app.flashes('success') is defined %}
+        {% for msg in app.flashes('success')%}
+            <div class="alert alert-info"> {{ msg }}</div>
+        {% endfor %}
     {% endif %}
     <div class="container jumbotron">
         {% if form is defined %}
