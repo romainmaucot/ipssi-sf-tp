@@ -26,15 +26,12 @@ class ArticleController extends AbstractController
      */
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {
-
         $page                   = $request->query->get('page') ? : 1 ;
         if ($this->getUser()) {
             $isAdmin            = in_array('ROLE_ADMIN', $this->getUser()->getRoles());
         } else {
             $isAdmin            = false;
         }
-
-
         $articles               = $isAdmin     === true ?
             $articleRepository->orderArticleAdmin($page) :
             $articleRepository->orderArticle($page);

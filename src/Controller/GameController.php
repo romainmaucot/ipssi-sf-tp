@@ -40,17 +40,21 @@ class GameController extends AbstractController
      */
     public function play(GameRepository $gameRepository, UserRepository $userRepository, Request $request) : Response
     {
+        /** @var Game $lastGame */
         $lastGame           = $gameRepository->findLast();
-        if (!$lastGame) {
-            throw new Exception('Il n\'y a pas de jeux');
+        if ($lastGame == false) {
+            $this->addFlash('error', 'Il n\'y a pas de jeux');
+            return $this->redirectToRoute('game_play');
         }
         if ($this->getUser()->getAmount() < 1) {
+            $this->addFlash('error', 'Il semble que vous n\'êtes pa connecté');
             return $this->redirectToRoute('article_index');
         }
         /** @var array $cases */
         $cases              = $lastGame->getCases();
         if (!$cases) {
             $this->addFlash('error', 'No bet found');
+            return $this->redirectToRoute('game_play');
         }
         /** @var array $aCases */
         $aCases             = [];
@@ -67,10 +71,12 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var array $data */
             $data           = $form->getData();
 
             if (!$this->getUser()) {
-                return $this->redirectToRoute('game_play', ['message' => 'Vous n\'ête pas connecté']);
+                $this->addFlash('error', 'Il semble que vous n\'êtes pa connecté');
+                return $this->redirectToRoute('game_play');
             }
             //-------------------------Déduction de mise + induction dans bank----------------------------------------
             $newAmount      = ($this->getUser()->getAmount()) - ($data['mise']);
@@ -102,13 +108,13 @@ class GameController extends AbstractController
             $this->addFlash('success', $msg);
             return $this->render('game/play.html.twig', [
                 'form'      => $form->createView(),
-                'cases'     => $cases ? : [],
+                'cases'     => $cases,
             ]);
         }
 
         return $this->render('game/play.html.twig', [
             'form'          => $form->createView(),
-            'cases'         => $cases ? : [],
+            'cases'         => $cases,
         ]);
     }
 
@@ -124,18 +130,19 @@ class GameController extends AbstractController
         $game               = new Game();
         $userManager        = new UserManager();
         $gameManager        = new GameManager();
-
+        /** @var array $cases */
         $cases              = $game->getCases();
-        $aPlayer            = $userRepository->nextPlayers();
+        /** @var array $aPlayer */
+        $aPlayer            = $userRepository->nextPlayers() ? : null;
 
         //----------------Lance la roue-------------------
         /** @var int $rand */
-        $rand = array_rand($cases, 1);
-        $finalResult = $cases[$rand];
+        $rand               = array_rand($cases, 1);
+        $finalResult        = $cases[$rand];
         //------------------------------------------------
 
         $result = [];
-        if (!is_null($aPlayer)) {
+        if ($aPlayer) {
             foreach ($aPlayer as $player) {
                 $numCase    = $userManager->getMise($player->getNextBet());
                 $betAmount  = $userManager->getNumber($player->getNextBet());
@@ -145,6 +152,7 @@ class GameController extends AbstractController
                 $betAmount  = array_filter(explode(',', $betAmount));
                 if (!$numCase || !$betAmount) {
                     $this->addFlash('error', 'No bet found');
+                    return $this->redirectToRoute('game_play');
                 }
                 foreach ($numCase as $key => $case) {
                     if ($case == $finalResult->getNumber()) {

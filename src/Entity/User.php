@@ -213,6 +213,10 @@ class User implements UserInterface
         return $this->games;
     }
 
+    /**
+     * @param Game $game
+     * @return User
+     */
     public function addGame(Game $game): self
     {
         if (!$this->games->contains($game)) {
@@ -223,6 +227,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Game $game
+     * @return User
+     */
     public function removeGame(Game $game): self
     {
         if ($this->games->contains($game)) {
