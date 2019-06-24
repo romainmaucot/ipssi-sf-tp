@@ -16,16 +16,17 @@ App\Entity\User:
     reset_token: '1,2,3,4'
 
 
-App\Entity\Article:
-  article-{1..15}:
+App\Entity\Conference:
+  conference-{1..15}:
       __construct: false
       title (unique): 'Partie : <numberBetween(1,100)>'
       content: 'Résultats de la partie : user gagne <numberBetween(1, 1000)> euros'
+      publish_date: "<dateTimeBetween('1 year ago', 'now')>"
 
 App\Entity\Comment:
   comment{1..20}:
     __construct: false
     username : '<name()>'
-    article: "@article-<numberBetween(1,15)>"
+    conference: "@conference-<numberBetween(1,15)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"

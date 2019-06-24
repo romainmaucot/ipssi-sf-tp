@@ -29,12 +29,7 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="Conference", inversedBy="comments")
      */
-    private $article;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $censored;
+    private $conference;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,26 +65,14 @@ class Comment
         return $this;
     }
 
-    public function getArticle(): ?Conference
+    public function getConference(): ?Conference
     {
-        return $this->article;
+        return $this->conference;
     }
 
-    public function setArticle(?Conference $article): self
+    public function setConference(?Conference $conference): self
     {
-        $this->article = $article;
-
-        return $this;
-    }
-
-    public function getCensored(): ?bool
-    {
-        return $this->censored;
-    }
-
-    public function setCensored(bool $censored): self
-    {
-        $this->censored = $censored;
+        $this->conference = $conference;
 
         return $this;
     }

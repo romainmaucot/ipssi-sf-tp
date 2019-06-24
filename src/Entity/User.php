@@ -43,21 +43,6 @@ class User implements UserInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $amount;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="users")
-     */
-    private $games;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $next_bet;
-
-    /**
      * @var string
      */
     private $plainPassword;
@@ -84,10 +69,6 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
-    public function __construct()
-    {
-        $this->games = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -193,72 +174,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAmount(): ?int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): self
-    {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Game[]
-     */
-    public function getGames(): Collection
-    {
-        return $this->games;
-    }
-
-    /**
-     * @param Game $game
-     * @return User
-     */
-    public function addGame(Game $game): self
-    {
-        if (!$this->games->contains($game)) {
-            $this->games[] = $game;
-            $game->addUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Game $game
-     * @return User
-     */
-    public function removeGame(Game $game): self
-    {
-        if ($this->games->contains($game)) {
-            $this->games->removeElement($game);
-            $game->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getNextBet(): ?string
-    {
-        return $this->next_bet;
-    }
-
-    /**
-     * @param string|null $next_bet
-     * @return User
-     */
-    public function setNextBet(?string $next_bet): self
-    {
-        $this->next_bet = $next_bet;
-
-        return $this;
-    }
     public function __toString(): string
     {
 
