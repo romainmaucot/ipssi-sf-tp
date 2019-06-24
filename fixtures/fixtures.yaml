@@ -30,3 +30,27 @@ App\Entity\Comment:
     conference: "@conference-<numberBetween(1,15)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+
+App\Entity\RefNote:
+  Refnote-{1}:
+    __construct: false
+    description: 'Pas intéressant'
+
+  Refnote-{2}:
+    __construct: false
+    description: 'Peu attirant'
+
+
+  Refnote-{3}:
+    __construct: false
+    description: 'Assez désirable'
+
+
+  Refnote-{4}:
+    __construct: false
+    description: 'Très attrayant'
+
+
+  Refnote-{5}:
+    __construct: false
+    description: 'Hyper intéressant'
