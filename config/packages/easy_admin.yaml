@@ -4,13 +4,10 @@ easy_admin:
         User:
             class: App\Entity\User
             list:
-                fields: ['id', 'username', 'mail', 'amount', 'games', 'roles', 'next_bet']
+                fields: ['id', 'username', 'mail', 'roles']
         Comment:
             class: App\Entity\Comment
 
         Article:
             class: App\Entity\Article
-
-        Game:
-            class: App\Entity\Game
 

@@ -17,7 +17,7 @@ class CommentType extends AbstractType
                 'required' => true,
             ])
             //->add('publish_date')
-            ->add('article', HiddenType::class, [
+            ->add('conference', HiddenType::class, [
                 'disabled' => true,
             ])
             ->add('username', null, [

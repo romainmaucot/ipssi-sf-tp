@@ -13,7 +13,7 @@
                     method: "POST",
                     url: "http://127.0.0.1:8082/ajax/active",
                     dataType : 'html',
-                    data: { idarticle: id},
+                    data: { idconference: id},
                     success: function(response){
                         $('#'+id).toggleClass('alert-danger');
                         console.log(response);
@@ -30,7 +30,7 @@
             });
         });
     </script>
-    <h1>Tous les Articles</h1>
+    <h1>Toutes les conférences</h1>
     {% if message is defined %}nklmklnklm
         <span class="alert-danger"> {% dump(message)%} </span>
     {% endif %}
@@ -44,13 +44,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
+        {% for conference in conferences %}
             <tr>
-                <td>{{ article.title }}</td>
-                <td>{{ article.publishDate ? article.publishDate|date('Y-m-d à H:i') : '' }}</td>
-                <td><a href="{{ path('article_show', {'id': article.id}) }}">Consulter</a></td>
+                <td>{{ conference.title }}</td>
+                <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
+                <td><a href="{{ path('conference_show', {'id': conference.id}) }}">Consulter</a></td>
                 <td><!-- Default switch -->
-                    <button id='{{ article.id }}' class="activeComs btn btn-success"></button>
+                    <button id='{{ conference.id }}' class="activeComs btn btn-success"></button>
                 </td>
             </tr>
         {% else %}
@@ -64,7 +64,7 @@
             <ul class="pagination">
                 {% for i in 1..maxPages %}
                     <li class="page-item active">
-                        <a class="page-link" href="{{ path('article_index', {page: i}) }}">{{ i }}</a>
+                        <a class="page-link" href="{{ path('conference_index', {page: i}) }}">{{ i }}</a>
                     </li>&nbsp;
                 {% endfor %}
             </ul>

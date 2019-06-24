@@ -7,21 +7,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use App\Repository\ArticleRepository;
+use App\Repository\ConferenceRepository;
 
 class AjaxController extends AbstractController
 {
     /**
      * @Route("/ajax/active", name="ajax_active")
-     * @param ArticleRepository $articleRepository
+     * @param ConferenceRepository $articleRepository
      * @param Request $request
      * @return Response
      */
-    public function active(ArticleRepository $articleRepository, Request $request) : Response
+    public function active(ConferenceRepository $articleRepository, Request $request) : Response
     {
         $id         = $request->get('idarticle');
         if (!$id) {
-            return new Response('No article found', 300);
+            return new Response('No conference found', 300);
         }
         $article    = $articleRepository->find($id);
 

@@ -52,4 +52,3 @@ security:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/account, roles: ROLE_USER }
          - { path: ^/logout, roles: ROLE_USER }
-         - { path: ^/game, roles: ROLE_USER }

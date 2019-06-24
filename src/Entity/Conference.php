@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ConferenceRepository")
+ * @ORM\Entity(repositoryClass="ConferenceRepository")
  */
 class Conference
 {
@@ -21,80 +21,111 @@ class Conference
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $titre;
+    private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $description;
+    private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_conference")
+     * @ORM\Column(type="datetime")
      */
-    private $commentaires;
+    private $publish_date;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
+     */
+    private $comments;
+
+
 
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getTitle(): ?string
     {
-        return $this->titre;
+        return $this->title;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitle(string $title): self
     {
-        $this->titre = $titre;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getContent(): ?string
     {
-        return $this->description;
+        return $this->content;
     }
 
-    public function setDescription(string $description): self
+    public function setContent(string $content): self
     {
-        $this->description = $description;
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getPublishDate(): ?\DateTimeInterface
+    {
+        return $this->publish_date;
+    }
+
+    /**
+     * @param \DateTimeInterface $publish_date
+     * @return Conference
+     */
+    public function setPublishDate(\DateTimeInterface $publish_date): self
+    {
+        $this->publish_date = $publish_date;
 
         return $this;
     }
 
     /**
-     * @return Collection|Commentaire[]
+     * @return Collection|Comment[]
      */
-    public function getCommentaires(): Collection
+    public function getComments(): Collection
     {
-        return $this->commentaires;
+        return $this->comments;
     }
 
-    public function addCommentaire(Commentaire $commentaire): self
+    /**
+     * @param Comment $comment
+     * @return Conference
+     */
+    public function addComment(Comment $comment): self
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setIdConference($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
         }
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): self
+    /**
+     * @param Comment $comment
+     * @return Conference
+     */
+    public function removeUser(Comment $comment): self
     {
-        if ($this->commentaires->contains($commentaire)) {
-            $this->commentaires->removeElement($commentaire);
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getIdConference() === $this) {
-                $commentaire->setIdConference(null);
-            }
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+
+        return $this->title;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Manager;
 
 use App\Entity\User;
-use App\Entity\Article;
+use App\Entity\Conference;
 use Doctrine\ORM\EntityManager;
 
 class GameManager

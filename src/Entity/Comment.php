@@ -27,7 +27,7 @@ class Comment
     private $publish_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Conference", inversedBy="comments")
      */
     private $article;
 
@@ -70,12 +70,12 @@ class Comment
         return $this;
     }
 
-    public function getArticle(): ?Article
+    public function getArticle(): ?Conference
     {
         return $this->article;
     }
 
-    public function setArticle(?Article $article): self
+    public function setArticle(?Conference $article): self
     {
         $this->article = $article;
 
