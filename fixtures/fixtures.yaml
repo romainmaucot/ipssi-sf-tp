@@ -2,6 +2,7 @@ App\Entity\User:
   admin:
     __construct: false
     username: 'admin'
+    userfirstname: 'admin'
     roles: '[ROLE_ADMIN]'
     mail: 'admin@admin.com'
     password: '\$2y\$13\$9k7QDtyOle8XXLif/4GuseiRWllCVZFCdzdiOb0s42vgQcvf9l/L.'
@@ -10,6 +11,7 @@ App\Entity\User:
   user:
     __construct: false
     username: 'user'
+    userfirstname: 'user'
     roles: '[ROLE_USER]'
     mail: 'user@user.com'
     password: '\$2y\$13\$rTeDuTojdqSqCXXZNXyp9erOYHJjVnuaSQLAkUAIXGaLcmlN8JGaa'
@@ -26,7 +28,7 @@ App\Entity\Conference:
 App\Entity\Comment:
   comment{1..20}:
     __construct: false
-    username : '<name()>'
+    user_id : '<numberBetween(1, 20)>'
     conference: "@conference-<numberBetween(1,15)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"

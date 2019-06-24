@@ -32,9 +32,14 @@ class Comment
     private $conference;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", length=255)
      */
-    private $username;
+    private $user_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\RefNote")
+     */
+    private $refNote;
 
     public function getId(): ?int
     {
@@ -77,14 +82,26 @@ class Comment
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getUserId(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUserId(string $user_id): self
     {
-        $this->username = $username;
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getRefNote(): ?RefNote
+    {
+        return $this->refNote;
+    }
+
+    public function setRefNote(?RefNote $refNote): self
+    {
+        $this->refNote = $refNote;
 
         return $this;
     }

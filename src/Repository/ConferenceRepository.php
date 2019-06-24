@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Conference;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Conference|null find($id, $lockMode = null, $lockVersion = null)

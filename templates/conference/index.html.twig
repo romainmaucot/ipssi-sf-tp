@@ -40,7 +40,6 @@
                 <th>Titre</th>
                 <th>Publié le</th>
                 <th>👁</th>
-                <th>Commentaires</th>
             </tr>
         </thead>
         <tbody>
@@ -49,9 +48,6 @@
                 <td>{{ conference.title }}</td>
                 <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
                 <td><a href="{{ path('conference_show', {'id': conference.id}) }}">Consulter</a></td>
-                <td><!-- Default switch -->
-                    <button id='{{ conference.id }}' class="activeComs btn btn-success"></button>
-                </td>
             </tr>
         {% else %}
             <tr>
