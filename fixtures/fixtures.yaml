@@ -29,7 +29,7 @@ App\Entity\Comment:
   comment{1..20}:
     __construct: false
     user_id : '<numberBetween(1, 20)>'
-    ref_note_id: '<numberBetween(1, 5)>'
+    ref_note: '<numberBetween(1, 5)>'
     conference: "@conference-<numberBetween(1,15)>"
     content: 'Le contenu'
     publish_date: "<dateTimeBetween('1 year ago', 'now')>"
